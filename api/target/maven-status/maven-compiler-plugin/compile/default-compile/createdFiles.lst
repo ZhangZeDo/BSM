@@ -1,0 +1,8 @@
+com\hltj\api\dao\TUserMapper.class
+com\hltj\api\domain\TUserExample.class
+com\hltj\api\domain\TUser.class
+com\hltj\api\domain\TUserExample$Criteria.class
+com\hltj\api\domain\TUserExample$Criterion.class
+com\hltj\api\domain\TUserExample$GeneratedCriteria.class
+com\hltj\api\domain\BaseEntity.class
+com\hltj\api\service\UserService.class
