@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hltj.api.dao.TCustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.hltj.api.domain.TCustomer" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="customer_phone" property="customerPhone" jdbcType="VARCHAR" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="create_datetime" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="update_datetime" property="updateDatetime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, customer_id, customer_name, customer_phone, open_id, create_datetime, created_by, 
+    update_datetime, updated_by
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hltj.api.domain.TCustomerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_customer
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_customer
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hltj.api.domain.TCustomerExample" >
+    delete from t_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hltj.api.domain.TCustomer" >
+    insert into t_customer (id, customer_id, customer_name, 
+      customer_phone, open_id, create_datetime, 
+      created_by, update_datetime, updated_by
+      )
+    values (#{id,jdbcType=CHAR}, #{customerId,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, 
+      #{customerPhone,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{createDatetime,jdbcType=TIMESTAMP}, 
+      #{createdBy,jdbcType=VARCHAR}, #{updateDatetime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hltj.api.domain.TCustomer" >
+    insert into t_customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="customerPhone != null" >
+        customer_phone,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null" >
+        #{customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hltj.api.domain.TCustomerExample" resultType="java.lang.Integer" >
+    select count(*) from t_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_customer
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.customerId != null" >
+        customer_id = #{record.customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerName != null" >
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerPhone != null" >
+        customer_phone = #{record.customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openId != null" >
+        open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDatetime != null" >
+        create_datetime = #{record.createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDatetime != null" >
+        update_datetime = #{record.updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_customer
+    set id = #{record.id,jdbcType=CHAR},
+      customer_id = #{record.customerId,jdbcType=VARCHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      customer_phone = #{record.customerPhone,jdbcType=VARCHAR},
+      open_id = #{record.openId,jdbcType=VARCHAR},
+      create_datetime = #{record.createDatetime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      update_datetime = #{record.updateDatetime,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hltj.api.domain.TCustomer" >
+    update t_customer
+    <set >
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null" >
+        customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hltj.api.domain.TCustomer" >
+    update t_customer
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

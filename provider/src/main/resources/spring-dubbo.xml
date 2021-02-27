@@ -10,13 +10,14 @@
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
     <dubbo:application name="provider"/>
-    <!-- 注册中心的ip地址 -->
     <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
     <!-- 扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类 -->
     <dubbo:annotation package="com.hltj.provider.serviceImpl"/>
-    <dubbo:protocol name="dubbo" port="20881"/>
+    <dubbo:protocol name="dubbo" port="20881" threads="200"/>
 
-    <bean id="userService" class="com.hltj.provider.serviceImpl.UserServiceImpl"/>
+    <dubbo:provider retries="0"  />
     <dubbo:service interface="com.hltj.api.service.UserService" ref="userService"/>
+    <dubbo:service interface="com.hltj.api.service.SequenceService" ref="sequenceService"/>
+
 
 </beans>

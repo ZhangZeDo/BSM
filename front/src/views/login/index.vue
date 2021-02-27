@@ -2,10 +2,10 @@
     <div class="login">
         <div style="display: flex;justify-content: center;margin-top: 150px;">
                 <el-form auto-complete="on" label-position="left">
-                    <h3 class="title" align="center">欢迎使用多媒体展示平台</h3>
+                    <h3 class="title" align="center">后浪淘金-后台系统</h3>
                     <el-card style="width: 450px;margin-top: 20px">
-                        <el-input style="margin-top: 30px" v-model="userAccount" placeholder="请输入用户号"></el-input>
-                        <el-input style="margin-top: 20px" v-model="userPassword" placeholder="请输入密码" show-password @keyup.enter.native="doLogin"></el-input>
+                        <el-input style="margin-top: 30px" v-model="userName" placeholder="请输入用户号"></el-input>
+                        <el-input style="margin-top: 20px" v-model="userPasswd" placeholder="请输入密码" show-password @keyup.enter.native="doLogin"></el-input>
                         <el-input style="margin-top: 20px"
                                 class="log-input"
                                 v-model="userCode"
@@ -27,8 +27,8 @@
         name: "login",
         data() {
             return{
-                userAccount: '',
-                userPassword: '',
+                userName: '',
+                userPasswd: '',
                 userCode:'',
                 checkCode:'',
             }
@@ -49,15 +49,15 @@
                 this.checkCode = code; //把code值赋给验证码
             },
             doLogin(){
-                if (!this.userAccount || !this.userPassword || !this.userCode) {
+                if (!this.userName || !this.userPasswd || !this.userCode) {
                     this.$message.error("请输入登录信息")
-                }else if (this.userCode != this.checkCode){
+                }/*else if (this.userCode != this.checkCode){
                     this.$message.error("验证码输入错误")
-                } else{
-                    this.$axios.post('/user/login',
+                }*/ else{
+                    this.$axios.post('/login/login',
                         {
-                            userAccount:this.userAccount,
-                            userPassword:this.userPassword
+                            userName:this.userName,
+                            userPasswd:this.userPasswd
                         }).then(resp=>{
                         if (resp.code == 200){
                             this.$router.push({name: 'index'});

@@ -1,44 +1,43 @@
 <template>
   <div>
       <div style="background-color:#545c64;">
-          <el-menu
-                  :default-active="activeIndex"
-                  class="el-menu-demo"
-                  mode="horizontal"
-                  background-color="#545c64"
-                  text-color="#fff"
-                  active-text-color="#ffd04b"
-                  style="padding-left: 33%;">
-              <el-menu-item index="1" @click="jump('homePage')" >首页</el-menu-item>
-              <el-menu-item index="2" @click="jump('search')" >发现</el-menu-item>
-              <el-menu-item index="3" @click="jump('news')" >新闻公告</el-menu-item>
-              <el-submenu index="5">
-                  <template slot="title">个人中心</template>
-                  <el-menu-item index="5-1" @click="jump('userInfo')">个人信息</el-menu-item>
-                  <el-menu-item index="5-2" @click="jump('bookmark')">我的收藏</el-menu-item>
-                  <el-menu-item index="5-3" @click="jump('fileUpload')">我的上传</el-menu-item>
-                  <el-menu-item index="5-4" @click="loginOut">退出登录</el-menu-item>
-              </el-submenu>
-              <el-submenu v-if="user.roleType != 'ordinary'" index="6">
-                  <template slot="title">系统管理</template>
-                  <el-submenu index="6-1">
-                      <template slot="title">人员管理</template>
-                      <el-menu-item index="6-1-1" @click="jump('adminManage')">管理员管理</el-menu-item><!--v-if="user.roleType == 'superAdmin'"-->
-                      <el-menu-item index="6-1-2" @click="jump('userManage')">用户管理</el-menu-item>
-                  </el-submenu>
-                  <el-submenu index="6-2">
-                      <template slot="title">作品管理</template>
-                      <el-menu-item index="6-2-2" @click="jump('mediaTypeManage')">作品类型</el-menu-item>
-                      <el-menu-item index="6-2-3" @click="jump('mediaList')">作品列表</el-menu-item>
-                  </el-submenu>
-                  <el-menu-item index="6-3" @click="jump('newsList')">新闻管理</el-menu-item>
-                  <el-submenu index="6-4">
-                      <template slot="title">系统配置</template>
-                      <el-menu-item index="6-4-1" @click="jump('timingTask')">定时任务</el-menu-item>
-                      <el-menu-item index="6-4-1" @click="jump('variableConfig')">变量配置</el-menu-item>
-                  </el-submenu>
-              </el-submenu>
-          </el-menu>
+          <el-row>
+              <div style="height: 50px;padding-left:11%;margin-top: 10%">
+                  <p style="font-size: 22px;color: #edf5d0">后浪淘金-后台系统</p>
+              </div>
+          </el-row>
+          <el-row class="tac">
+              <el-col >
+                  <el-menu
+                          default-active="1"
+                          class="el-menu-vertical-demo"
+                          @open="handleOpen"
+                          @close="handleClose"
+                          background-color="#545c64"
+                          text-color="#fff"
+                          active-text-color="#ffd04b">
+                      <el-menu-item  index="1">
+                          <i class="el-icon-location"></i>
+                          <span slot="title" style="font-size: 18px">用户列表</span>
+                      </el-menu-item >
+                      <el-submenu index="2">
+                          <template slot="title">
+                              <i class="el-icon-menu"></i>
+                              <span slot="title" style="font-size: 18px">打新模块</span>
+                          </template>
+                          <el-menu-item index="2-1" style="font-size: 18px">新股数据上传</el-menu-item>
+                          <el-menu-item index="2-2" style="font-size: 18px">打新统计配置</el-menu-item>
+                          <el-menu-item index="2-3" style="font-size: 18px">新股申购策略</el-menu-item>
+                          <el-menu-item index="2-4" style="font-size: 18px">用户中签登记</el-menu-item>
+                          <el-menu-item index="2-5" style="font-size: 18px">用户卖出</el-menu-item>
+                      </el-submenu>
+                      <el-menu-item index="3">
+                          <i class="el-icon-document"></i>
+                          <span slot="title" style="font-size: 18px">明星基金跟踪</span>
+                      </el-menu-item>
+                  </el-menu>
+              </el-col>
+          </el-row>
       </div>
   </div>
 </template>
@@ -56,6 +55,14 @@
             this.getLoginInfo()
         },
         methods: {
+            methods: {
+                handleOpen(key, keyPath) {
+                    window.console.info(key, keyPath)
+                },
+                handleClose(key, keyPath) {
+                    window.console.info(key, keyPath)
+                }
+            },
             jump(path){
                 this.$router.push({path:path})
             },
@@ -73,7 +80,6 @@
 
             loginOut(){
                 this.$axios.post('/user/loginOut',{
-
                 }).then(
                     this.$router.push({name: 'login'})
                 );

@@ -1,0 +1,35 @@
+package com.hltj.api.enums;
+
+import com.hltj.api.service.ErrorCode;
+
+public enum ErrCode implements ErrorCode {
+    LOGIN_ERROR("-1","登录异常"),
+    ILLEGAL_ARGUMENT("403", "非法参数!"),
+    SYS_ERROR("444","系统异常, 请重试"),
+    BAD_USER_PASSWORD("446", "用户名或密码错误!"),
+    SUCCESS("200","success"),
+    ISNULL("420","error");
+
+
+    private String code;
+
+    private String desc;
+
+    ErrCode(String code) {
+        this.code = code;
+    }
+
+    ErrCode(String code, String desc) {
+        this.code = code;
+        this.desc = desc;
+    }
+
+    @Override
+    public String getCode() {
+        return this.code;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+}

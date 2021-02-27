@@ -52,11 +52,12 @@
         </javaClientGenerator>
 
         <!-- 配置表信息 -->
-        <table schema="bsm" tableName="t_user"
-               domainObjectName="TUser" enableCountByExample="true"
+        <table schema="bsm" tableName="t_sequence"
+               domainObjectName="TSequence" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true">
         </table>
+
 
 
     </context>

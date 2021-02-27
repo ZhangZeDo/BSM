@@ -2,9 +2,8 @@ package com.hltj.api.dao;
 
 import com.hltj.api.domain.TUser;
 import com.hltj.api.domain.TUserExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TUserMapper {
     int countByExample(TUserExample example);
