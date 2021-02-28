@@ -18,6 +18,7 @@
     <dubbo:provider retries="0"  />
     <dubbo:service interface="com.hltj.api.service.UserService" ref="userService"/>
     <dubbo:service interface="com.hltj.api.service.SequenceService" ref="sequenceService"/>
+    <dubbo:service interface="com.hltj.api.service.CustomerService" ref="customerService"/>
 
 
 </beans>

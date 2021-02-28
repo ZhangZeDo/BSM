@@ -273,4 +273,31 @@
       updated_by = #{updatedBy,jdbcType=VARCHAR}
     where id = #{id,jdbcType=CHAR}
   </update>
+
+  <sql id="queryByCaluse">
+    <trim prefix="WHERE" prefixOverrides="AND | OR ">
+      <if test="param.customerPhone !=null and param.customerPhone !='' ">
+        and customer_phone = #{param.customerPhone}
+      </if>
+      <if test="param.customerId !=null and param.customerId !='' ">
+        and customer_id = #{param.customerId}
+      </if>
+    </trim>
+  </sql>
+
+  <select id="selectByCustomerDTO" resultMap="BaseResultMap" parameterType="com.hltj.api.dto.CustomerDTO">
+    select
+    <include refid="Base_Column_List" />
+    from t_customer
+    <include refid="queryByCaluse"/>
+    order by ${param.sort}
+    <if test="param.startNum >= 0" >
+      limit ${param.startNum},${param.pageSize}
+    </if>
+  </select>
+  <select id="selectTotalByCustomerDTO" resultType="int">
+    select count(1) from t_customer
+    <include refid="queryByCaluse"/>
+  </select>
+
 </mapper>

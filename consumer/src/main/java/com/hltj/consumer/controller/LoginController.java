@@ -7,9 +7,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -27,7 +27,7 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value = "login",method = RequestMethod.POST)
     @ResponseBody
-    public Object login(@RequestBody TUser user, HttpServletRequest request) {
+    public Object login(@RequestBody TUser user, HttpServletRequest request, HttpServletResponse response) {
         try{
             TUser userFromDB = userService.queryUserByName(user.getUserName());
             if (userFromDB==null){
@@ -35,8 +35,9 @@ public class LoginController extends BaseController {
             }else if(!StringUtils.equals(user.getUserPasswd(),userFromDB.getUserPasswd())){
                 return ResponseResult.error("用户密码错误");
             }
-            HttpSession session = request.getSession();
-            session.setAttribute("userInfo",user);
+            HttpSession session = request.getSession(true);
+            session.setAttribute("userInfo",userFromDB);
+            session.setAttribute("userInfo2",userFromDB.getUserName());
             return ResponseResult.build(user);
         }catch (Exception e){
             return ResponseResult.error(e.getMessage());
@@ -55,15 +56,4 @@ public class LoginController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "getLoginInfo",method = RequestMethod.POST)
-    @ResponseBody
-    public Object getLoginInfo(HttpServletRequest request) {
-        try{
-            HttpSession session = request.getSession();
-            TUser user = (TUser) session.getAttribute("userInfo");
-            return ResponseResult.build(user);
-        }catch (Exception e){
-            return ResponseResult.error(e.getMessage());
-        }
-    }
 }

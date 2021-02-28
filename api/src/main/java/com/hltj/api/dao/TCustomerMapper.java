@@ -3,6 +3,8 @@ package com.hltj.api.dao;
 import com.hltj.api.domain.TCustomer;
 import com.hltj.api.domain.TCustomerExample;
 import java.util.List;
+
+import com.hltj.api.dto.CustomerDTO;
 import org.apache.ibatis.annotations.Param;
 
 public interface TCustomerMapper {
@@ -27,4 +29,13 @@ public interface TCustomerMapper {
     int updateByPrimaryKeySelective(TCustomer record);
 
     int updateByPrimaryKey(TCustomer record);
+
+    /**
+     * 分页查询数据
+     * @param customerDTO
+     * @return
+     */
+    List<TCustomer> selectByCustomerDTO(@Param("param") CustomerDTO customerDTO);
+
+    int selectTotalByCustomerDTO(@Param("param") CustomerDTO customerDTO);
 }

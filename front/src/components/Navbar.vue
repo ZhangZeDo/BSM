@@ -2,7 +2,7 @@
   <div>
       <div style="background-color:#545c64;">
           <el-row>
-              <div style="height: 50px;padding-left:11%;margin-top: 10%">
+              <div style="height: 50px;padding-left:11%;margin-top: 10%"  @click="jump('homePage')">
                   <p style="font-size: 22px;color: #edf5d0">后浪淘金-后台系统</p>
               </div>
           </el-row>
@@ -16,7 +16,7 @@
                           background-color="#545c64"
                           text-color="#fff"
                           active-text-color="#ffd04b">
-                      <el-menu-item  index="1">
+                      <el-menu-item  index="1" @click="jump('customerList')">
                           <i class="el-icon-location"></i>
                           <span slot="title" style="font-size: 18px">用户列表</span>
                       </el-menu-item >
@@ -46,44 +46,18 @@
     export default {
         name: 'Navbar',
         data() {
-            return {
-                activeIndex: '1',
-                user:'',
-            };
-        },
-        created() {
-            this.getLoginInfo()
+
         },
         methods: {
-            methods: {
-                handleOpen(key, keyPath) {
-                    window.console.info(key, keyPath)
-                },
-                handleClose(key, keyPath) {
-                    window.console.info(key, keyPath)
-                }
+            handleOpen(key, keyPath) {
+                window.console.info(key, keyPath)
+            },
+            handleClose(key, keyPath) {
+                window.console.info(key, keyPath)
             },
             jump(path){
                 this.$router.push({path:path})
             },
-
-            getLoginInfo(){
-                this.$axios.post('/user/getLoginInfo',{
-                }).then(resp=>{
-                    if (resp.code == 200) {
-                        this.user = resp.data
-                    }else{
-                        this.$message.error(resp.message);
-                    }
-                });
-            },
-
-            loginOut(){
-                this.$axios.post('/user/loginOut',{
-                }).then(
-                    this.$router.push({name: 'login'})
-                );
-            }
         }
     }
 </script>

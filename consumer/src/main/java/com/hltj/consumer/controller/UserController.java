@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author zhangzedong
@@ -41,5 +42,17 @@ public class UserController extends BaseController {
           logger.error("新增用户信息失败，原因：",e);
           return ResponseResult.error("新增失败");
       }
+    }
+
+    @RequestMapping(value = "getLoginInfo",method = RequestMethod.POST)
+    @ResponseBody
+    public Object getLoginInfo(HttpServletRequest request) {
+        try{
+            HttpSession session = request.getSession();
+            TUser user = (TUser) session.getAttribute("userInfo");
+            return ResponseResult.build(user);
+        }catch (Exception e){
+            return ResponseResult.error(e.getMessage());
+        }
     }
 }

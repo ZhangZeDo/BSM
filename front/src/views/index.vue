@@ -5,7 +5,7 @@
         </el-aside>
         <el-container>
             <el-header style="text-align: right; font-size: 12px">
-                <span>标题</span>
+                <span style="font-size: 20px">{{user.userName}}</span>
             </el-header>
             <el-main>
                 <router-view></router-view>
@@ -23,14 +23,30 @@
         },
         data(){
             return{
-                modelName:'HomePage',
+                user:'',
             }
         },
         created(){
-          this.modelName = this.$route.query.modelName;
+          this.getLoginInfo()
         },
         methods:{
+            getLoginInfo(){
+                this.$axios.post('/user/getLoginInfo',{
+                }).then(resp=>{
+                    if (resp.code == 200) {
+                        this.user = resp.data
+                    }else{
+                        this.$message.error(resp.message);
+                    }
+                });
+            },
 
+            loginOut(){
+                this.$axios.post('/user/loginOut',{
+                }).then(
+                    this.$router.push({name: 'login'})
+                );
+            }
         }
     }
 </script>

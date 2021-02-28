@@ -1,9 +1,6 @@
 package com.hltj.consumer.config;
 
-import com.alibaba.dubbo.common.json.JSON;
 import com.hltj.api.domain.TUser;
-import com.hltj.api.enums.ErrCode;
-import com.hltj.api.exception.BussException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,9 +28,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         response.setHeader("Access-Control-Allow-Headers","Origin,Content-Type,Accept,token,X-Requested-With");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         if (user == null){
-            String jsonString = JSON.json(new BussException(ErrCode.LOGIN_ERROR));
+            return true;
+            /*String jsonString = JSON.json(new BussException(ErrCode.LOGIN_ERROR));
             response.getWriter().write(jsonString);
-            return false;
+            return false;*/
         }else {
             return true;
         }

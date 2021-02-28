@@ -35,6 +35,11 @@ const routers = new Router({
                     name:'homePage',
                     component: () => import('@/views/homePage'),
                 },
+                {
+                    path:'/customerList',
+                    name:'customerList',
+                    component: () => import('@/views/customer/customerList'),
+                },
             ]
         },
     ]

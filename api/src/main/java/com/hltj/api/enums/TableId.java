@@ -8,6 +8,8 @@ package com.hltj.api.enums;
 public enum TableId {
     ID_T_USER("01","SEQ_T_USERG"),
     ID_T_CUSTOMER("02","SEQ_T_CUSTOMER");
+
+
     private String code;
     private String sequenceName;
 
