@@ -40,6 +40,36 @@ const routers = new Router({
                     name:'customerList',
                     component: () => import('@/views/customer/customerList'),
                 },
+                {
+                    path:'/stockInfoList',
+                    name:'stockInfoList',
+                    component: () => import('@/views/stockModule/stockInfoList'),
+                },
+                {
+                    path:'/stockConfig',
+                    name:'stockConfig',
+                    component: () => import('@/views/stockModule/stockConfig'),
+                },
+                {
+                    path:'/stockStrategy',
+                    name:'stockStrategy',
+                    component: () => import('@/views/stockModule/stockStrategy'),
+                },
+                {
+                    path:'/customerRegister',
+                    name:'customerRegister',
+                    component: () => import('@/views/stockModule/customerRegister'),
+                },
+                {
+                    path:'/customerSale',
+                    name:'customerSale',
+                    component: () => import('@/views/stockModule/customerSale'),
+                },
+                {
+                    path:'/fundInfo',
+                    name:'fundInfo',
+                    component: () => import('@/views/fund/fundInfo'),
+                },
             ]
         },
     ]

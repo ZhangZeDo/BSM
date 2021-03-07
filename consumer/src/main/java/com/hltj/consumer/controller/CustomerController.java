@@ -30,7 +30,7 @@ public class CustomerController extends BaseController {
 
     @RequestMapping(value = "queryCustomerList",method = RequestMethod.POST)
     @ResponseBody
-    public Object queryCustomerList(@RequestBody CustomerDTO customerDTO, HttpServletRequest request) {
+    public Object queryCustomerList(@RequestBody CustomerDTO customerDTO) {
         try {
             PageResponseResult responseResult = customerService.queryCustomerList(customerDTO);
             return ResponseResult.build(responseResult);

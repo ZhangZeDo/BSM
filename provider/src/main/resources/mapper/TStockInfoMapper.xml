@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hltj.api.dao.TStockInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hltj.api.domain.TStockInfo" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="listing_date" property="listingDate" jdbcType="TIMESTAMP" />
+    <result column="market_value" property="marketValue" jdbcType="DECIMAL" />
+    <result column="fund_raise" property="fundRaise" jdbcType="DECIMAL" />
+    <result column="stock_total" property="stockTotal" jdbcType="DECIMAL" />
+    <result column="issue_rate" property="issueRate" jdbcType="DECIMAL" />
+    <result column="issue_num" property="issueNum" jdbcType="DECIMAL" />
+    <result column="issue_price" property="issuePrice" jdbcType="DECIMAL" />
+    <result column="heap" property="heap" jdbcType="DECIMAL" />
+    <result column="heap_price" property="heapPrice" jdbcType="DECIMAL" />
+    <result column="heap_total" property="heapTotal" jdbcType="DECIMAL" />
+    <result column="heap_rate" property="heapRate" jdbcType="DECIMAL" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="stock_market" property="stockMarket" jdbcType="VARCHAR" />
+    <result column="green_shoes" property="greenShoes" jdbcType="VARCHAR" />
+    <result column="sponsor" property="sponsor" jdbcType="VARCHAR" />
+    <result column="investor" property="investor" jdbcType="VARCHAR" />
+    <result column="subscribe_rate" property="subscribeRate" jdbcType="DECIMAL" />
+    <result column="finance_multiple" property="financeMultiple" jdbcType="DECIMAL" />
+    <result column="subscribe_multiple" property="subscribeMultiple" jdbcType="DECIMAL" />
+    <result column="dark_rise" property="darkRise" jdbcType="DECIMAL" />
+    <result column="first_rise" property="firstRise" jdbcType="DECIMAL" />
+    <result column="hold_rise" property="holdRise" jdbcType="DECIMAL" />
+    <result column="open" property="open" jdbcType="DECIMAL" />
+    <result column="group_a_top" property="groupATop" jdbcType="DECIMAL" />
+    <result column="group_a_end" property="groupAEnd" jdbcType="DECIMAL" />
+    <result column="group_a_rate" property="groupARate" jdbcType="DECIMAL" />
+    <result column="group_a_market" property="groupAMarket" jdbcType="DECIMAL" />
+    <result column="group_a_profit" property="groupAProfit" jdbcType="DECIMAL" />
+    <result column="group_b_num" property="groupBNum" jdbcType="DECIMAL" />
+    <result column="group_b_top" property="groupBTop" jdbcType="DECIMAL" />
+    <result column="group_b_rate" property="groupBRate" jdbcType="DECIMAL" />
+    <result column="plug_hammer" property="plugHammer" jdbcType="DECIMAL" />
+    <result column="group_b_market" property="groupBMarket" jdbcType="DECIMAL" />
+    <result column="group_b_profit" property="groupBProfit" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_datetime" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="update_datetime" property="updateDatetime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_code, stock_name, listing_date, market_value, fund_raise, stock_total, 
+    issue_rate, issue_num, issue_price, heap, heap_price, heap_total, heap_rate, address, 
+    industry, stock_market, green_shoes, sponsor, investor, subscribe_rate, finance_multiple, 
+    subscribe_multiple, dark_rise, first_rise, hold_rise, open, group_a_top, group_a_end, 
+    group_a_rate, group_a_market, group_a_profit, group_b_num, group_b_top, group_b_rate, 
+    plug_hammer, group_b_market, group_b_profit, status, create_datetime, created_by, 
+    update_datetime, updated_by
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hltj.api.domain.TStockInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_stock_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_stock_info
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_stock_info
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hltj.api.domain.TStockInfoExample" >
+    delete from t_stock_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hltj.api.domain.TStockInfo" >
+    insert into t_stock_info (id, stock_code, stock_name, 
+      listing_date, market_value, fund_raise, 
+      stock_total, issue_rate, issue_num, 
+      issue_price, heap, heap_price, 
+      heap_total, heap_rate, address, 
+      industry, stock_market, green_shoes, 
+      sponsor, investor, subscribe_rate, 
+      finance_multiple, subscribe_multiple, dark_rise, 
+      first_rise, hold_rise, open, 
+      group_a_top, group_a_end, group_a_rate, 
+      group_a_market, group_a_profit, group_b_num, 
+      group_b_top, group_b_rate, plug_hammer, 
+      group_b_market, group_b_profit, status, 
+      create_datetime, created_by, update_datetime, 
+      updated_by)
+    values (#{id,jdbcType=CHAR}, #{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{listingDate,jdbcType=TIMESTAMP}, #{marketValue,jdbcType=DECIMAL}, #{fundRaise,jdbcType=DECIMAL}, 
+      #{stockTotal,jdbcType=DECIMAL}, #{issueRate,jdbcType=DECIMAL}, #{issueNum,jdbcType=DECIMAL}, 
+      #{issuePrice,jdbcType=DECIMAL}, #{heap,jdbcType=DECIMAL}, #{heapPrice,jdbcType=DECIMAL}, 
+      #{heapTotal,jdbcType=DECIMAL}, #{heapRate,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR}, 
+      #{industry,jdbcType=VARCHAR}, #{stockMarket,jdbcType=VARCHAR}, #{greenShoes,jdbcType=VARCHAR}, 
+      #{sponsor,jdbcType=VARCHAR}, #{investor,jdbcType=VARCHAR}, #{subscribeRate,jdbcType=DECIMAL}, 
+      #{financeMultiple,jdbcType=DECIMAL}, #{subscribeMultiple,jdbcType=DECIMAL}, #{darkRise,jdbcType=DECIMAL}, 
+      #{firstRise,jdbcType=DECIMAL}, #{holdRise,jdbcType=DECIMAL}, #{open,jdbcType=DECIMAL}, 
+      #{groupATop,jdbcType=DECIMAL}, #{groupAEnd,jdbcType=DECIMAL}, #{groupARate,jdbcType=DECIMAL}, 
+      #{groupAMarket,jdbcType=DECIMAL}, #{groupAProfit,jdbcType=DECIMAL}, #{groupBNum,jdbcType=DECIMAL}, 
+      #{groupBTop,jdbcType=DECIMAL}, #{groupBRate,jdbcType=DECIMAL}, #{plugHammer,jdbcType=DECIMAL}, 
+      #{groupBMarket,jdbcType=DECIMAL}, #{groupBProfit,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, 
+      #{createDatetime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, #{updateDatetime,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hltj.api.domain.TStockInfo" >
+    insert into t_stock_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="listingDate != null" >
+        listing_date,
+      </if>
+      <if test="marketValue != null" >
+        market_value,
+      </if>
+      <if test="fundRaise != null" >
+        fund_raise,
+      </if>
+      <if test="stockTotal != null" >
+        stock_total,
+      </if>
+      <if test="issueRate != null" >
+        issue_rate,
+      </if>
+      <if test="issueNum != null" >
+        issue_num,
+      </if>
+      <if test="issuePrice != null" >
+        issue_price,
+      </if>
+      <if test="heap != null" >
+        heap,
+      </if>
+      <if test="heapPrice != null" >
+        heap_price,
+      </if>
+      <if test="heapTotal != null" >
+        heap_total,
+      </if>
+      <if test="heapRate != null" >
+        heap_rate,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="stockMarket != null" >
+        stock_market,
+      </if>
+      <if test="greenShoes != null" >
+        green_shoes,
+      </if>
+      <if test="sponsor != null" >
+        sponsor,
+      </if>
+      <if test="investor != null" >
+        investor,
+      </if>
+      <if test="subscribeRate != null" >
+        subscribe_rate,
+      </if>
+      <if test="financeMultiple != null" >
+        finance_multiple,
+      </if>
+      <if test="subscribeMultiple != null" >
+        subscribe_multiple,
+      </if>
+      <if test="darkRise != null" >
+        dark_rise,
+      </if>
+      <if test="firstRise != null" >
+        first_rise,
+      </if>
+      <if test="holdRise != null" >
+        hold_rise,
+      </if>
+      <if test="open != null" >
+        open,
+      </if>
+      <if test="groupATop != null" >
+        group_a_top,
+      </if>
+      <if test="groupAEnd != null" >
+        group_a_end,
+      </if>
+      <if test="groupARate != null" >
+        group_a_rate,
+      </if>
+      <if test="groupAMarket != null" >
+        group_a_market,
+      </if>
+      <if test="groupAProfit != null" >
+        group_a_profit,
+      </if>
+      <if test="groupBNum != null" >
+        group_b_num,
+      </if>
+      <if test="groupBTop != null" >
+        group_b_top,
+      </if>
+      <if test="groupBRate != null" >
+        group_b_rate,
+      </if>
+      <if test="plugHammer != null" >
+        plug_hammer,
+      </if>
+      <if test="groupBMarket != null" >
+        group_b_market,
+      </if>
+      <if test="groupBProfit != null" >
+        group_b_profit,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="listingDate != null" >
+        #{listingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="marketValue != null" >
+        #{marketValue,jdbcType=DECIMAL},
+      </if>
+      <if test="fundRaise != null" >
+        #{fundRaise,jdbcType=DECIMAL},
+      </if>
+      <if test="stockTotal != null" >
+        #{stockTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="issueRate != null" >
+        #{issueRate,jdbcType=DECIMAL},
+      </if>
+      <if test="issueNum != null" >
+        #{issueNum,jdbcType=DECIMAL},
+      </if>
+      <if test="issuePrice != null" >
+        #{issuePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="heap != null" >
+        #{heap,jdbcType=DECIMAL},
+      </if>
+      <if test="heapPrice != null" >
+        #{heapPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="heapTotal != null" >
+        #{heapTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="heapRate != null" >
+        #{heapRate,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="stockMarket != null" >
+        #{stockMarket,jdbcType=VARCHAR},
+      </if>
+      <if test="greenShoes != null" >
+        #{greenShoes,jdbcType=VARCHAR},
+      </if>
+      <if test="sponsor != null" >
+        #{sponsor,jdbcType=VARCHAR},
+      </if>
+      <if test="investor != null" >
+        #{investor,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeRate != null" >
+        #{subscribeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="financeMultiple != null" >
+        #{financeMultiple,jdbcType=DECIMAL},
+      </if>
+      <if test="subscribeMultiple != null" >
+        #{subscribeMultiple,jdbcType=DECIMAL},
+      </if>
+      <if test="darkRise != null" >
+        #{darkRise,jdbcType=DECIMAL},
+      </if>
+      <if test="firstRise != null" >
+        #{firstRise,jdbcType=DECIMAL},
+      </if>
+      <if test="holdRise != null" >
+        #{holdRise,jdbcType=DECIMAL},
+      </if>
+      <if test="open != null" >
+        #{open,jdbcType=DECIMAL},
+      </if>
+      <if test="groupATop != null" >
+        #{groupATop,jdbcType=DECIMAL},
+      </if>
+      <if test="groupAEnd != null" >
+        #{groupAEnd,jdbcType=DECIMAL},
+      </if>
+      <if test="groupARate != null" >
+        #{groupARate,jdbcType=DECIMAL},
+      </if>
+      <if test="groupAMarket != null" >
+        #{groupAMarket,jdbcType=DECIMAL},
+      </if>
+      <if test="groupAProfit != null" >
+        #{groupAProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="groupBNum != null" >
+        #{groupBNum,jdbcType=DECIMAL},
+      </if>
+      <if test="groupBTop != null" >
+        #{groupBTop,jdbcType=DECIMAL},
+      </if>
+      <if test="groupBRate != null" >
+        #{groupBRate,jdbcType=DECIMAL},
+      </if>
+      <if test="plugHammer != null" >
+        #{plugHammer,jdbcType=DECIMAL},
+      </if>
+      <if test="groupBMarket != null" >
+        #{groupBMarket,jdbcType=DECIMAL},
+      </if>
+      <if test="groupBProfit != null" >
+        #{groupBProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createDatetime != null" >
+        #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hltj.api.domain.TStockInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_stock_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_stock_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.stockCode != null" >
+        stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.listingDate != null" >
+        listing_date = #{record.listingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.marketValue != null" >
+        market_value = #{record.marketValue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fundRaise != null" >
+        fund_raise = #{record.fundRaise,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stockTotal != null" >
+        stock_total = #{record.stockTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.issueRate != null" >
+        issue_rate = #{record.issueRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.issueNum != null" >
+        issue_num = #{record.issueNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.issuePrice != null" >
+        issue_price = #{record.issuePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.heap != null" >
+        heap = #{record.heap,jdbcType=DECIMAL},
+      </if>
+      <if test="record.heapPrice != null" >
+        heap_price = #{record.heapPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.heapTotal != null" >
+        heap_total = #{record.heapTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.heapRate != null" >
+        heap_rate = #{record.heapRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industry != null" >
+        industry = #{record.industry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockMarket != null" >
+        stock_market = #{record.stockMarket,jdbcType=VARCHAR},
+      </if>
+      <if test="record.greenShoes != null" >
+        green_shoes = #{record.greenShoes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sponsor != null" >
+        sponsor = #{record.sponsor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.investor != null" >
+        investor = #{record.investor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subscribeRate != null" >
+        subscribe_rate = #{record.subscribeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.financeMultiple != null" >
+        finance_multiple = #{record.financeMultiple,jdbcType=DECIMAL},
+      </if>
+      <if test="record.subscribeMultiple != null" >
+        subscribe_multiple = #{record.subscribeMultiple,jdbcType=DECIMAL},
+      </if>
+      <if test="record.darkRise != null" >
+        dark_rise = #{record.darkRise,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstRise != null" >
+        first_rise = #{record.firstRise,jdbcType=DECIMAL},
+      </if>
+      <if test="record.holdRise != null" >
+        hold_rise = #{record.holdRise,jdbcType=DECIMAL},
+      </if>
+      <if test="record.open != null" >
+        open = #{record.open,jdbcType=DECIMAL},
+      </if>
+      <if test="record.groupATop != null" >
+        group_a_top = #{record.groupATop,jdbcType=DECIMAL},
+      </if>
+      <if test="record.groupAEnd != null" >
+        group_a_end = #{record.groupAEnd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.groupARate != null" >
+        group_a_rate = #{record.groupARate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.groupAMarket != null" >
+        group_a_market = #{record.groupAMarket,jdbcType=DECIMAL},
+      </if>
+      <if test="record.groupAProfit != null" >
+        group_a_profit = #{record.groupAProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.groupBNum != null" >
+        group_b_num = #{record.groupBNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.groupBTop != null" >
+        group_b_top = #{record.groupBTop,jdbcType=DECIMAL},
+      </if>
+      <if test="record.groupBRate != null" >
+        group_b_rate = #{record.groupBRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.plugHammer != null" >
+        plug_hammer = #{record.plugHammer,jdbcType=DECIMAL},
+      </if>
+      <if test="record.groupBMarket != null" >
+        group_b_market = #{record.groupBMarket,jdbcType=DECIMAL},
+      </if>
+      <if test="record.groupBProfit != null" >
+        group_b_profit = #{record.groupBProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.createDatetime != null" >
+        create_datetime = #{record.createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDatetime != null" >
+        update_datetime = #{record.updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_stock_info
+    set id = #{record.id,jdbcType=CHAR},
+      stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      listing_date = #{record.listingDate,jdbcType=TIMESTAMP},
+      market_value = #{record.marketValue,jdbcType=DECIMAL},
+      fund_raise = #{record.fundRaise,jdbcType=DECIMAL},
+      stock_total = #{record.stockTotal,jdbcType=DECIMAL},
+      issue_rate = #{record.issueRate,jdbcType=DECIMAL},
+      issue_num = #{record.issueNum,jdbcType=DECIMAL},
+      issue_price = #{record.issuePrice,jdbcType=DECIMAL},
+      heap = #{record.heap,jdbcType=DECIMAL},
+      heap_price = #{record.heapPrice,jdbcType=DECIMAL},
+      heap_total = #{record.heapTotal,jdbcType=DECIMAL},
+      heap_rate = #{record.heapRate,jdbcType=DECIMAL},
+      address = #{record.address,jdbcType=VARCHAR},
+      industry = #{record.industry,jdbcType=VARCHAR},
+      stock_market = #{record.stockMarket,jdbcType=VARCHAR},
+      green_shoes = #{record.greenShoes,jdbcType=VARCHAR},
+      sponsor = #{record.sponsor,jdbcType=VARCHAR},
+      investor = #{record.investor,jdbcType=VARCHAR},
+      subscribe_rate = #{record.subscribeRate,jdbcType=DECIMAL},
+      finance_multiple = #{record.financeMultiple,jdbcType=DECIMAL},
+      subscribe_multiple = #{record.subscribeMultiple,jdbcType=DECIMAL},
+      dark_rise = #{record.darkRise,jdbcType=DECIMAL},
+      first_rise = #{record.firstRise,jdbcType=DECIMAL},
+      hold_rise = #{record.holdRise,jdbcType=DECIMAL},
+      open = #{record.open,jdbcType=DECIMAL},
+      group_a_top = #{record.groupATop,jdbcType=DECIMAL},
+      group_a_end = #{record.groupAEnd,jdbcType=DECIMAL},
+      group_a_rate = #{record.groupARate,jdbcType=DECIMAL},
+      group_a_market = #{record.groupAMarket,jdbcType=DECIMAL},
+      group_a_profit = #{record.groupAProfit,jdbcType=DECIMAL},
+      group_b_num = #{record.groupBNum,jdbcType=DECIMAL},
+      group_b_top = #{record.groupBTop,jdbcType=DECIMAL},
+      group_b_rate = #{record.groupBRate,jdbcType=DECIMAL},
+      plug_hammer = #{record.plugHammer,jdbcType=DECIMAL},
+      group_b_market = #{record.groupBMarket,jdbcType=DECIMAL},
+      group_b_profit = #{record.groupBProfit,jdbcType=DECIMAL},
+      status = #{record.status,jdbcType=TINYINT},
+      create_datetime = #{record.createDatetime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      update_datetime = #{record.updateDatetime,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hltj.api.domain.TStockInfo" >
+    update t_stock_info
+    <set >
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="listingDate != null" >
+        listing_date = #{listingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="marketValue != null" >
+        market_value = #{marketValue,jdbcType=DECIMAL},
+      </if>
+      <if test="fundRaise != null" >
+        fund_raise = #{fundRaise,jdbcType=DECIMAL},
+      </if>
+      <if test="stockTotal != null" >
+        stock_total = #{stockTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="issueRate != null" >
+        issue_rate = #{issueRate,jdbcType=DECIMAL},
+      </if>
+      <if test="issueNum != null" >
+        issue_num = #{issueNum,jdbcType=DECIMAL},
+      </if>
+      <if test="issuePrice != null" >
+        issue_price = #{issuePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="heap != null" >
+        heap = #{heap,jdbcType=DECIMAL},
+      </if>
+      <if test="heapPrice != null" >
+        heap_price = #{heapPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="heapTotal != null" >
+        heap_total = #{heapTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="heapRate != null" >
+        heap_rate = #{heapRate,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="stockMarket != null" >
+        stock_market = #{stockMarket,jdbcType=VARCHAR},
+      </if>
+      <if test="greenShoes != null" >
+        green_shoes = #{greenShoes,jdbcType=VARCHAR},
+      </if>
+      <if test="sponsor != null" >
+        sponsor = #{sponsor,jdbcType=VARCHAR},
+      </if>
+      <if test="investor != null" >
+        investor = #{investor,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeRate != null" >
+        subscribe_rate = #{subscribeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="financeMultiple != null" >
+        finance_multiple = #{financeMultiple,jdbcType=DECIMAL},
+      </if>
+      <if test="subscribeMultiple != null" >
+        subscribe_multiple = #{subscribeMultiple,jdbcType=DECIMAL},
+      </if>
+      <if test="darkRise != null" >
+        dark_rise = #{darkRise,jdbcType=DECIMAL},
+      </if>
+      <if test="firstRise != null" >
+        first_rise = #{firstRise,jdbcType=DECIMAL},
+      </if>
+      <if test="holdRise != null" >
+        hold_rise = #{holdRise,jdbcType=DECIMAL},
+      </if>
+      <if test="open != null" >
+        open = #{open,jdbcType=DECIMAL},
+      </if>
+      <if test="groupATop != null" >
+        group_a_top = #{groupATop,jdbcType=DECIMAL},
+      </if>
+      <if test="groupAEnd != null" >
+        group_a_end = #{groupAEnd,jdbcType=DECIMAL},
+      </if>
+      <if test="groupARate != null" >
+        group_a_rate = #{groupARate,jdbcType=DECIMAL},
+      </if>
+      <if test="groupAMarket != null" >
+        group_a_market = #{groupAMarket,jdbcType=DECIMAL},
+      </if>
+      <if test="groupAProfit != null" >
+        group_a_profit = #{groupAProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="groupBNum != null" >
+        group_b_num = #{groupBNum,jdbcType=DECIMAL},
+      </if>
+      <if test="groupBTop != null" >
+        group_b_top = #{groupBTop,jdbcType=DECIMAL},
+      </if>
+      <if test="groupBRate != null" >
+        group_b_rate = #{groupBRate,jdbcType=DECIMAL},
+      </if>
+      <if test="plugHammer != null" >
+        plug_hammer = #{plugHammer,jdbcType=DECIMAL},
+      </if>
+      <if test="groupBMarket != null" >
+        group_b_market = #{groupBMarket,jdbcType=DECIMAL},
+      </if>
+      <if test="groupBProfit != null" >
+        group_b_profit = #{groupBProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hltj.api.domain.TStockInfo" >
+    update t_stock_info
+    set stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      listing_date = #{listingDate,jdbcType=TIMESTAMP},
+      market_value = #{marketValue,jdbcType=DECIMAL},
+      fund_raise = #{fundRaise,jdbcType=DECIMAL},
+      stock_total = #{stockTotal,jdbcType=DECIMAL},
+      issue_rate = #{issueRate,jdbcType=DECIMAL},
+      issue_num = #{issueNum,jdbcType=DECIMAL},
+      issue_price = #{issuePrice,jdbcType=DECIMAL},
+      heap = #{heap,jdbcType=DECIMAL},
+      heap_price = #{heapPrice,jdbcType=DECIMAL},
+      heap_total = #{heapTotal,jdbcType=DECIMAL},
+      heap_rate = #{heapRate,jdbcType=DECIMAL},
+      address = #{address,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      stock_market = #{stockMarket,jdbcType=VARCHAR},
+      green_shoes = #{greenShoes,jdbcType=VARCHAR},
+      sponsor = #{sponsor,jdbcType=VARCHAR},
+      investor = #{investor,jdbcType=VARCHAR},
+      subscribe_rate = #{subscribeRate,jdbcType=DECIMAL},
+      finance_multiple = #{financeMultiple,jdbcType=DECIMAL},
+      subscribe_multiple = #{subscribeMultiple,jdbcType=DECIMAL},
+      dark_rise = #{darkRise,jdbcType=DECIMAL},
+      first_rise = #{firstRise,jdbcType=DECIMAL},
+      hold_rise = #{holdRise,jdbcType=DECIMAL},
+      open = #{open,jdbcType=DECIMAL},
+      group_a_top = #{groupATop,jdbcType=DECIMAL},
+      group_a_end = #{groupAEnd,jdbcType=DECIMAL},
+      group_a_rate = #{groupARate,jdbcType=DECIMAL},
+      group_a_market = #{groupAMarket,jdbcType=DECIMAL},
+      group_a_profit = #{groupAProfit,jdbcType=DECIMAL},
+      group_b_num = #{groupBNum,jdbcType=DECIMAL},
+      group_b_top = #{groupBTop,jdbcType=DECIMAL},
+      group_b_rate = #{groupBRate,jdbcType=DECIMAL},
+      plug_hammer = #{plugHammer,jdbcType=DECIMAL},
+      group_b_market = #{groupBMarket,jdbcType=DECIMAL},
+      group_b_profit = #{groupBProfit,jdbcType=DECIMAL},
+      status = #{status,jdbcType=TINYINT},
+      create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+
+  <sql id="queryByCaluse">
+    <trim prefix="WHERE" prefixOverrides="AND | OR ">
+      <if test="param.stockCode !=null and param.stockCode !='' ">
+        and stock_code = #{param.stockCode}
+      </if>
+      <if test="param.stockMarket !=null and param.stockMarket !='' ">
+        and stock_market = #{param.stockMarket}
+      </if>
+    </trim>
+  </sql>
+
+  <select id="selectByStockInfoDTO" resultMap="BaseResultMap" parameterType="com.hltj.api.dto.StockInfoDTO">
+    select
+    <include refid="Base_Column_List" />
+    from t_stock_info
+    <include refid="queryByCaluse"/>
+    <if test="param.startNum >= 0" >
+      limit ${param.startNum},${param.pageSize}
+    </if>
+  </select>
+  <select id="selectTotalByStockInfoDTO" resultType="int">
+    select count(1) from t_stock_info
+    <include refid="queryByCaluse"/>
+  </select>
+
+  <insert id="batchInsertStockInfo" parameterType="com.hltj.api.domain.TStockInfo" >
+    insert into t_stock_info (id, stock_code, stock_name,
+    listing_date, market_value, fund_raise,
+    stock_total, issue_rate, issue_num,
+    issue_price, heap, heap_price,
+    heap_total, heap_rate, address,
+    industry, stock_market, green_shoes,
+    sponsor, investor, subscribe_rate,
+    finance_multiple, subscribe_multiple, dark_rise,
+    first_rise, hold_rise, open,
+    group_a_top, group_a_end, group_a_rate,
+    group_a_market, group_a_profit, group_b_num,
+    group_b_top, group_b_rate, plug_hammer,
+    group_b_market, group_b_profit, status,
+    create_datetime, created_by, update_datetime,
+    updated_by)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{id,jdbcType=CHAR}, #{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR},
+      #{listingDate,jdbcType=TIMESTAMP}, #{marketValue,jdbcType=DECIMAL}, #{fundRaise,jdbcType=DECIMAL},
+      #{stockTotal,jdbcType=DECIMAL}, #{issueRate,jdbcType=DECIMAL}, #{issueNum,jdbcType=DECIMAL},
+      #{issuePrice,jdbcType=DECIMAL}, #{heap,jdbcType=DECIMAL}, #{heapPrice,jdbcType=DECIMAL},
+      #{heapTotal,jdbcType=DECIMAL}, #{heapRate,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR},
+      #{industry,jdbcType=VARCHAR}, #{stockMarket,jdbcType=VARCHAR}, #{greenShoes,jdbcType=VARCHAR},
+      #{sponsor,jdbcType=VARCHAR}, #{investor,jdbcType=VARCHAR}, #{subscribeRate,jdbcType=DECIMAL},
+      #{financeMultiple,jdbcType=DECIMAL}, #{subscribeMultiple,jdbcType=DECIMAL}, #{darkRise,jdbcType=DECIMAL},
+      #{firstRise,jdbcType=DECIMAL}, #{holdRise,jdbcType=DECIMAL}, #{open,jdbcType=DECIMAL},
+      #{groupATop,jdbcType=DECIMAL}, #{groupAEnd,jdbcType=DECIMAL}, #{groupARate,jdbcType=DECIMAL},
+      #{groupAMarket,jdbcType=DECIMAL}, #{groupAProfit,jdbcType=DECIMAL}, #{groupBNum,jdbcType=DECIMAL},
+      #{groupBTop,jdbcType=DECIMAL}, #{groupBRate,jdbcType=DECIMAL}, #{plugHammer,jdbcType=DECIMAL},
+      #{groupBMarket,jdbcType=DECIMAL}, #{groupBProfit,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT},
+      #{createDatetime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, #{updateDatetime,jdbcType=TIMESTAMP},
+      #{updatedBy,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+</mapper>

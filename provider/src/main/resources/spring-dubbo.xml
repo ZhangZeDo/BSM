@@ -19,6 +19,6 @@
     <dubbo:service interface="com.hltj.api.service.UserService" ref="userService"/>
     <dubbo:service interface="com.hltj.api.service.SequenceService" ref="sequenceService"/>
     <dubbo:service interface="com.hltj.api.service.CustomerService" ref="customerService"/>
-
+    <dubbo:service interface="com.hltj.api.service.StockInfoService" ref="stockInfoService"/>
 
 </beans>

@@ -99,6 +99,19 @@ export default {
             return checkStatus(response);
         });
     },
+    postFormData(url,params){
+        return axios({
+            method: 'POST',
+            url,
+            data:params,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+            timeout:180000
+        }).then(response => {
+            return checkStatus(response);
+        });
+    },
     postWithBlob(url,params){
         return axios({
             method: "post",
