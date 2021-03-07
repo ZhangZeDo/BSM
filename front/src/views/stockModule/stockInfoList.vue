@@ -28,16 +28,25 @@
                             prop="stockCode"
                             label="股票代码">
                     </el-table-column>
-                    <el-table-column
-                            prop="status"
-                            label="状态">
+                    <el-table-column prop="status" label="状态">
+                        <template slot-scope="scope" >
+                            <span v-if="scope.row.status === 1" style="color: #4c9f29">有效</span>
+                            <span v-if="scope.row.status === 2" style="color: #c71012">无效</span>
+                        </template>
                     </el-table-column>
                     <el-table-column prop="createDatetime" label="创建时间"  width="400">
                         <template slot-scope="scope">
                             {{parseTime(scope.row.createDatetime) }}
                         </template>
                     </el-table-column>
-
+                    <el-table-column>
+                        <template slot-scope="scope">
+                            <el-link v-if="scope.row.status===1" type="primary">失效</el-link>
+                            <el-link v-if="scope.row.status===2" type="primary">启用</el-link>
+                            <el-link style="padding-left: 10px" type="primary">查看</el-link>
+                            <el-link style="padding-left: 10px" type="danger">删除</el-link>
+                        </template>
+                    </el-table-column>
                 </el-table>
             </div>
             <div align="left" style="padding-top: 20px">
@@ -135,6 +144,14 @@
                 var min = ("0" + date.getMinutes()).slice(-2);
                 var second = ("0" + date.getSeconds()).slice(-2);
                 return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + second;
+            },
+
+            parseStatus(status){
+              if (status === 1){
+                  return '有效'
+              }else if (status === 2){
+                  return '无效'
+              }
             },
 
             handleRemove(file, fileList) {

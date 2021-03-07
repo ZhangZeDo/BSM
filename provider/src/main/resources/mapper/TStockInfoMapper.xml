@@ -855,21 +855,21 @@
     updated_by)
     values
     <foreach collection="list" item="item" index="index" separator=",">
-      (#{id,jdbcType=CHAR}, #{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR},
-      #{listingDate,jdbcType=TIMESTAMP}, #{marketValue,jdbcType=DECIMAL}, #{fundRaise,jdbcType=DECIMAL},
-      #{stockTotal,jdbcType=DECIMAL}, #{issueRate,jdbcType=DECIMAL}, #{issueNum,jdbcType=DECIMAL},
-      #{issuePrice,jdbcType=DECIMAL}, #{heap,jdbcType=DECIMAL}, #{heapPrice,jdbcType=DECIMAL},
-      #{heapTotal,jdbcType=DECIMAL}, #{heapRate,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR},
-      #{industry,jdbcType=VARCHAR}, #{stockMarket,jdbcType=VARCHAR}, #{greenShoes,jdbcType=VARCHAR},
-      #{sponsor,jdbcType=VARCHAR}, #{investor,jdbcType=VARCHAR}, #{subscribeRate,jdbcType=DECIMAL},
-      #{financeMultiple,jdbcType=DECIMAL}, #{subscribeMultiple,jdbcType=DECIMAL}, #{darkRise,jdbcType=DECIMAL},
-      #{firstRise,jdbcType=DECIMAL}, #{holdRise,jdbcType=DECIMAL}, #{open,jdbcType=DECIMAL},
-      #{groupATop,jdbcType=DECIMAL}, #{groupAEnd,jdbcType=DECIMAL}, #{groupARate,jdbcType=DECIMAL},
-      #{groupAMarket,jdbcType=DECIMAL}, #{groupAProfit,jdbcType=DECIMAL}, #{groupBNum,jdbcType=DECIMAL},
-      #{groupBTop,jdbcType=DECIMAL}, #{groupBRate,jdbcType=DECIMAL}, #{plugHammer,jdbcType=DECIMAL},
-      #{groupBMarket,jdbcType=DECIMAL}, #{groupBProfit,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT},
-      #{createDatetime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, #{updateDatetime,jdbcType=TIMESTAMP},
-      #{updatedBy,jdbcType=VARCHAR})
+      (#{item.id,jdbcType=CHAR}, #{item.stockCode,jdbcType=VARCHAR}, #{item.stockName,jdbcType=VARCHAR},
+      #{item.listingDate,jdbcType=TIMESTAMP}, #{item.marketValue,jdbcType=DECIMAL}, #{item.fundRaise,jdbcType=DECIMAL},
+      #{item.stockTotal,jdbcType=DECIMAL}, #{item.issueRate,jdbcType=DECIMAL}, #{item.issueNum,jdbcType=DECIMAL},
+      #{item.issuePrice,jdbcType=DECIMAL}, #{item.heap,jdbcType=DECIMAL}, #{item.heapPrice,jdbcType=DECIMAL},
+      #{item.heapTotal,jdbcType=DECIMAL}, #{item.heapRate,jdbcType=DECIMAL}, #{item.address,jdbcType=VARCHAR},
+      #{item.industry,jdbcType=VARCHAR}, #{item.stockMarket,jdbcType=VARCHAR}, #{item.greenShoes,jdbcType=VARCHAR},
+      #{item.sponsor,jdbcType=VARCHAR}, #{item.investor,jdbcType=VARCHAR}, #{item.subscribeRate,jdbcType=DECIMAL},
+      #{item.financeMultiple,jdbcType=DECIMAL}, #{item.subscribeMultiple,jdbcType=DECIMAL}, #{item.darkRise,jdbcType=DECIMAL},
+      #{item.firstRise,jdbcType=DECIMAL}, #{item.holdRise,jdbcType=DECIMAL}, #{item.open,jdbcType=DECIMAL},
+      #{item.groupATop,jdbcType=DECIMAL}, #{item.groupAEnd,jdbcType=DECIMAL}, #{item.groupARate,jdbcType=DECIMAL},
+      #{item.groupAMarket,jdbcType=DECIMAL}, #{item.groupAProfit,jdbcType=DECIMAL}, #{item.groupBNum,jdbcType=DECIMAL},
+      #{item.groupBTop,jdbcType=DECIMAL}, #{item.groupBRate,jdbcType=DECIMAL}, #{item.plugHammer,jdbcType=DECIMAL},
+      #{item.groupBMarket,jdbcType=DECIMAL}, #{item.groupBProfit,jdbcType=DECIMAL}, #{item.status,jdbcType=TINYINT},
+      #{item.createDatetime,jdbcType=TIMESTAMP}, #{item.createdBy,jdbcType=VARCHAR}, #{item.updateDatetime,jdbcType=TIMESTAMP},
+      #{item.updatedBy,jdbcType=VARCHAR})
     </foreach>
   </insert>
 

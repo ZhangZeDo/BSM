@@ -25,9 +25,9 @@ public interface StockInfoService {
 
     /**
      * 从文件中导入股票信息
-     * @param allStockList
+     * @param stockInfoList
      */
-    void batchInsertFromFile(List<Map<String,Object>> allStockList, String operator);
+    void batchInsertStockList(List<TStockInfo> stockInfoList);
 
     /**
      * 修改股票状态信息
