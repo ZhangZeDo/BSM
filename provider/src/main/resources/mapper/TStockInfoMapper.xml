@@ -815,7 +815,7 @@
   <sql id="queryByCaluse">
     <trim prefix="WHERE" prefixOverrides="AND | OR ">
       <if test="param.stockCode !=null and param.stockCode !='' ">
-        and stock_code = #{param.stockCode}
+        and stock_code like CONCAT('%,',#{param.stockCode},',%')
       </if>
       <if test="param.stockMarket !=null and param.stockMarket !='' ">
         and stock_market = #{param.stockMarket}

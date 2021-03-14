@@ -20,5 +20,6 @@
     <dubbo:service interface="com.hltj.api.service.SequenceService" ref="sequenceService"/>
     <dubbo:service interface="com.hltj.api.service.CustomerService" ref="customerService"/>
     <dubbo:service interface="com.hltj.api.service.StockInfoService" ref="stockInfoService" timeout="10000"/>
+    <dubbo:service interface="com.hltj.api.service.StockStrategyService" ref="stockStrategyService"/>
 
 </beans>

@@ -45,9 +45,6 @@
 <script>
     export default {
         name: 'Navbar',
-        data() {
-
-        },
         methods: {
             handleOpen(key, keyPath) {
                 window.console.info(key, keyPath)

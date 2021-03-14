@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hltj.api.dao.TStockStrategyMapper" >
+  <resultMap id="BaseResultMap" type="com.hltj.api.domain.TStockStrategy" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="start_share_date" property="startShareDate" jdbcType="TIMESTAMP" />
+    <result column="end_share_date" property="endShareDate" jdbcType="TIMESTAMP" />
+    <result column="dark_date" property="darkDate" jdbcType="TIMESTAMP" />
+    <result column="listing_date" property="listingDate" jdbcType="TIMESTAMP" />
+    <result column="module_name" property="moduleName" jdbcType="VARCHAR" />
+    <result column="module_image" property="moduleImage" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_datetime" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="update_datetime" property="updateDatetime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hltj.api.domain.TStockStrategy" extends="BaseResultMap" >
+    <result column="module_content" property="moduleContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_code, stock_name, start_share_date, end_share_date, dark_date, listing_date, 
+    module_name, module_image, status, create_datetime, created_by, update_datetime, 
+    updated_by
+  </sql>
+  <sql id="Blob_Column_List" >
+    module_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hltj.api.domain.TStockStrategyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_stock_strategy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hltj.api.domain.TStockStrategyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_stock_strategy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_stock_strategy
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_stock_strategy
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hltj.api.domain.TStockStrategyExample" >
+    delete from t_stock_strategy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hltj.api.domain.TStockStrategy" >
+    insert into t_stock_strategy (id, stock_code, stock_name, 
+      start_share_date, end_share_date, dark_date, 
+      listing_date, module_name, module_image, 
+      status, create_datetime, created_by, 
+      update_datetime, updated_by, module_content
+      )
+    values (#{id,jdbcType=CHAR}, #{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{startShareDate,jdbcType=TIMESTAMP}, #{endShareDate,jdbcType=TIMESTAMP}, #{darkDate,jdbcType=TIMESTAMP}, 
+      #{listingDate,jdbcType=TIMESTAMP}, #{moduleName,jdbcType=VARCHAR}, #{moduleImage,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{createDatetime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, 
+      #{updateDatetime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, #{moduleContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hltj.api.domain.TStockStrategy" >
+    insert into t_stock_strategy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="startShareDate != null" >
+        start_share_date,
+      </if>
+      <if test="endShareDate != null" >
+        end_share_date,
+      </if>
+      <if test="darkDate != null" >
+        dark_date,
+      </if>
+      <if test="listingDate != null" >
+        listing_date,
+      </if>
+      <if test="moduleName != null" >
+        module_name,
+      </if>
+      <if test="moduleImage != null" >
+        module_image,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+      <if test="moduleContent != null" >
+        module_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="startShareDate != null" >
+        #{startShareDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endShareDate != null" >
+        #{endShareDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="darkDate != null" >
+        #{darkDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="listingDate != null" >
+        #{listingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moduleName != null" >
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleImage != null" >
+        #{moduleImage,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createDatetime != null" >
+        #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleContent != null" >
+        #{moduleContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hltj.api.domain.TStockStrategyExample" resultType="java.lang.Integer" >
+    select count(*) from t_stock_strategy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_stock_strategy
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.stockCode != null" >
+        stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startShareDate != null" >
+        start_share_date = #{record.startShareDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endShareDate != null" >
+        end_share_date = #{record.endShareDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.darkDate != null" >
+        dark_date = #{record.darkDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.listingDate != null" >
+        listing_date = #{record.listingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.moduleName != null" >
+        module_name = #{record.moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleImage != null" >
+        module_image = #{record.moduleImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.createDatetime != null" >
+        create_datetime = #{record.createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDatetime != null" >
+        update_datetime = #{record.updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleContent != null" >
+        module_content = #{record.moduleContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_stock_strategy
+    set id = #{record.id,jdbcType=CHAR},
+      stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      start_share_date = #{record.startShareDate,jdbcType=TIMESTAMP},
+      end_share_date = #{record.endShareDate,jdbcType=TIMESTAMP},
+      dark_date = #{record.darkDate,jdbcType=TIMESTAMP},
+      listing_date = #{record.listingDate,jdbcType=TIMESTAMP},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      module_image = #{record.moduleImage,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      create_datetime = #{record.createDatetime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      update_datetime = #{record.updateDatetime,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      module_content = #{record.moduleContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_stock_strategy
+    set id = #{record.id,jdbcType=CHAR},
+      stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      start_share_date = #{record.startShareDate,jdbcType=TIMESTAMP},
+      end_share_date = #{record.endShareDate,jdbcType=TIMESTAMP},
+      dark_date = #{record.darkDate,jdbcType=TIMESTAMP},
+      listing_date = #{record.listingDate,jdbcType=TIMESTAMP},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      module_image = #{record.moduleImage,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      create_datetime = #{record.createDatetime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      update_datetime = #{record.updateDatetime,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hltj.api.domain.TStockStrategy" >
+    update t_stock_strategy
+    <set >
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="startShareDate != null" >
+        start_share_date = #{startShareDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endShareDate != null" >
+        end_share_date = #{endShareDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="darkDate != null" >
+        dark_date = #{darkDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="listingDate != null" >
+        listing_date = #{listingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moduleName != null" >
+        module_name = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleImage != null" >
+        module_image = #{moduleImage,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleContent != null" >
+        module_content = #{moduleContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hltj.api.domain.TStockStrategy" >
+    update t_stock_strategy
+    set stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      start_share_date = #{startShareDate,jdbcType=TIMESTAMP},
+      end_share_date = #{endShareDate,jdbcType=TIMESTAMP},
+      dark_date = #{darkDate,jdbcType=TIMESTAMP},
+      listing_date = #{listingDate,jdbcType=TIMESTAMP},
+      module_name = #{moduleName,jdbcType=VARCHAR},
+      module_image = #{moduleImage,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      module_content = #{moduleContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hltj.api.domain.TStockStrategy" >
+    update t_stock_strategy
+    set stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      start_share_date = #{startShareDate,jdbcType=TIMESTAMP},
+      end_share_date = #{endShareDate,jdbcType=TIMESTAMP},
+      dark_date = #{darkDate,jdbcType=TIMESTAMP},
+      listing_date = #{listingDate,jdbcType=TIMESTAMP},
+      module_name = #{moduleName,jdbcType=VARCHAR},
+      module_image = #{moduleImage,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+  <sql id="queryByCaluse">
+    <trim prefix="WHERE" prefixOverrides="AND | OR ">
+      <if test="param.stockCode !=null and param.stockCode !='' ">
+        and stock_code = CONCAT('%,',#{param.stockCode},',%')
+      </if>
+      <if test="param.stockName !=null and param.stockName !='' ">
+        and stock_name = CONCAT('%,',#{param.stockName},',%')
+      </if>
+    </trim>
+  </sql>
+
+  <select id="selectByStockStrategyDTO" resultMap="BaseResultMap" parameterType="com.hltj.api.dto.StockStrategyDTO">
+    select
+    <include refid="Base_Column_List" />
+    from t_stock_strategy
+    <include refid="queryByCaluse"/>
+    <if test="param.startNum >= 0" >
+      limit ${param.startNum},${param.pageSize}
+    </if>
+  </select>
+  <select id="selectTotalByStockStrategyDTO" resultType="int">
+    select count(1) from t_stock_strategy
+    <include refid="queryByCaluse"/>
+  </select>
+
+</mapper>

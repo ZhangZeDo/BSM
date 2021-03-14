@@ -1,14 +1,9 @@
 package com.hltj.api.service;
 
 import com.hltj.api.domain.TStockInfo;
-import com.hltj.api.dto.CustomerDTO;
 import com.hltj.api.dto.PageResponseResult;
 import com.hltj.api.dto.StockInfoDTO;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author zhangzedong

@@ -23,15 +23,7 @@ public enum TableId {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getSequenceName() {
         return sequenceName;
-    }
-
-    public void setSequenceName(String sequenceName) {
-        this.sequenceName = sequenceName;
     }
 }

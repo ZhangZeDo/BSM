@@ -7,8 +7,16 @@
             <div >
                 <el-row>
                     <el-col>
-                        <span>股票代码：</span> <el-input style="width: 220px" placeholder="请输入" v-model="queryForm.stockName" @input="queryData" clearable/>
-                        <span style="padding-left: 30px">股票市场：</span><el-input style="width: 220px" placeholder="请输入" v-model="queryForm.stockMarket" @input="queryData" clearable/>
+                        <span>股票代码：</span> <el-input style="width: 220px" placeholder="请输入" v-model="queryForm.stockCode" @input="queryData" clearable/>
+                        <span style="padding-left: 30px">股票市场：</span>
+                        <el-select v-model="queryForm.stockMarket" placeholder="请选择" @change="queryData" clearable>
+                            <el-option
+                                    v-for="item in options"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
                         <el-button type="primary" style="margin-left: 30px" @click="showUploadDialog">批量上传新股数据</el-button>
                     </el-col>
                 </el-row>
@@ -39,12 +47,12 @@
                             {{parseTime(scope.row.createDatetime) }}
                         </template>
                     </el-table-column>
-                    <el-table-column>
+                    <el-table-column label="操作">
                         <template slot-scope="scope">
-                            <el-link v-if="scope.row.status===1" type="primary">失效</el-link>
-                            <el-link v-if="scope.row.status===2" type="primary">启用</el-link>
-                            <el-link style="padding-left: 10px" type="primary">查看</el-link>
-                            <el-link style="padding-left: 10px" type="danger">删除</el-link>
+                            <el-link v-if="scope.row.status===1" type="primary" @click="updateStockStatus(scope.row)">失效</el-link>
+                            <el-link v-if="scope.row.status===2" type="primary" @click="updateStockStatus(scope.row)">启用</el-link>
+                            <el-link style="padding-left: 10px" type="primary" >查看</el-link>
+                            <el-link style="padding-left: 10px" type="danger" @click="deleteStockInfo(scope.row)">删除</el-link>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -56,7 +64,7 @@
                             @current-change="handleCurrentChange"
                             :current-page="queryForm.page"
                             :page-size="queryForm.pageSize"
-                            :page-sizes="[20,40,60,100]"
+                            :page-sizes="[10,20,50,100]"
                             layout="total, sizes,prev, pager, next, jumper"
                             :total="total">
                     </el-pagination>
@@ -95,15 +103,21 @@
         data(){
             return{
                 queryForm:{
-                    stockName:'',
+                    stockCode:'',
                     stockMarket:'',
                     page:1,
-                    pageSize:20,
+                    pageSize:10,
                 },
                 total:0,
                 tableList:[],
                 dialogUploadVisible:false,
                 templateFileList:[],
+                options: [
+                    {value: 'HK', label: 'HK'},
+                    {value: 'US', label: 'US    '},
+                    {value: 'SZ', label: 'SZ'},
+                    {value: 'SH', label: 'SH'},
+                ],
             }
         },
         created(){
@@ -115,7 +129,7 @@
             },
             queryData(){
                 this.$axios.post('/stockInfo/queryStockInfoList',{
-                    stockName:this.queryForm.stockName,
+                    stockCode:this.queryForm.stockCode,
                     stockMarket:this.queryForm.stockMarket,
                     page:this.queryForm.page,
                     pageSize:this.queryForm.pageSize,
@@ -145,15 +159,6 @@
                 var second = ("0" + date.getSeconds()).slice(-2);
                 return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + second;
             },
-
-            parseStatus(status){
-              if (status === 1){
-                  return '有效'
-              }else if (status === 2){
-                  return '无效'
-              }
-            },
-
             handleRemove(file, fileList) {
                 window.console.log(file, fileList);
             },
@@ -182,6 +187,23 @@
                     }else{
                         this.$message.error(resp.data.message);
                     }
+                });
+            },
+            updateStockStatus(row){
+                this.$axios.post('/stockInfo/updateStockInfoStatus',{
+                    id:row.id,
+                    status:row.status===1?2:1,
+                }).then(resp=>{
+                    window.console.info(resp)
+                    this.queryData()
+                });
+            },
+            deleteStockInfo(row){
+                this.$axios.post('/stockInfo/deleteStockInfo',{
+                    id:row.id,
+                }).then(resp=>{
+                    window.console.info(resp)
+                    this.queryData()
                 });
             },
         }

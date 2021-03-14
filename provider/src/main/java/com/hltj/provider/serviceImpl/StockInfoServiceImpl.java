@@ -55,9 +55,6 @@ public class StockInfoServiceImpl implements StockInfoService {
         stockInfoDao.batchInsertStockInfo(stockInfoList);
     }
 
-
-
-
     @Override
     public void updateStockInfoStatus(TStockInfo stockInfo, String operator) {
         if (StringUtils.isBlank(stockInfo.getId()) || stockInfo.getStatus()==null){
