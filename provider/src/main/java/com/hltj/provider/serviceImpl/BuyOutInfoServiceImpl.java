@@ -5,6 +5,7 @@ import com.hltj.api.domain.TBuyOutInfo;
 import com.hltj.api.domain.TCustomer;
 import com.hltj.api.domain.TStockInfo;
 import com.hltj.api.dto.BuyOutInfoDTO;
+import com.hltj.api.dto.LuckyInfoDTO;
 import com.hltj.api.dto.PageResponseResult;
 import com.hltj.api.exception.BussException;
 import com.hltj.api.service.BuyOutInfoService;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author zhangzedong
@@ -62,6 +64,18 @@ public class BuyOutInfoServiceImpl implements BuyOutInfoService {
 
     @Override
     public PageResponseResult queryBuyOutInfoListByDTO(BuyOutInfoDTO buyOutInfoDTO) {
-        return null;
+        Integer page = buyOutInfoDTO.getPage();
+        if (buyOutInfoDTO.getPage() == null || buyOutInfoDTO.getPageSize() == null) {
+            throw new BussException("非法入参");
+        }
+        if (page > 0) {
+            buyOutInfoDTO.setStartNum((page - 1) * buyOutInfoDTO.getPageSize());
+        } else {
+            buyOutInfoDTO.setStartNum(0);
+        }
+
+        List<BuyOutInfoDTO> luckyInfoDTOList = buyOutInfoDao.selectByBuyOutInfoDTO(buyOutInfoDTO);
+        int total = buyOutInfoDao.selectTotalByBuyOutInfoDTO(buyOutInfoDTO);
+        return new PageResponseResult(total, luckyInfoDTOList);
     }
 }

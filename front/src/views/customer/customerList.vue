@@ -45,7 +45,7 @@
                             @current-change="handleCurrentChange"
                             :current-page="queryForm.page"
                             :page-size="queryForm.pageSize"
-                            :page-sizes="[20,40,60,100]"
+                            :page-sizes="[10,20,50,100]"
                             layout="total, sizes,prev, pager, next, jumper"
                             :total="total">
                     </el-pagination>
@@ -65,7 +65,7 @@
                     customerPhone:'',
                     customerId:'',
                     page:1,
-                    pageSize:20,
+                    pageSize:10,
                     sort:'',
                 },
                 total:0,

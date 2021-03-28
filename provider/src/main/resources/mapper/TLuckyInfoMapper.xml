@@ -271,18 +271,7 @@
     <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
   </resultMap>
 
-  <sql id="queryByCaluse">
-    <trim prefix="WHERE" prefixOverrides="AND | OR ">
-      <if test="param.stockCode !=null and param.stockCode !='' ">
-        and stock_code like CONCAT('%,',#{param.stockCode},',%')
-      </if>
-      <if test="param.stockMarket !=null and param.stockMarket !='' ">
-        and stock_market = #{param.stockMarket}
-      </if>
-    </trim>
-  </sql>
-
-  <select id="selectByLuckyInfoDTO" resultType="DTOResultMap" parameterType="com.hltj.api.dto.LuckyInfoDTO">
+  <select id="selectByLuckyInfoDTO" resultMap="DTOResultMap" parameterType="com.hltj.api.dto.LuckyInfoDTO">
     select
       a.id,a.customer_id,b.customer_name,a.stock_code,c.stock_name, a.create_datetime, a.created_by, a.update_datetime,
     a.updated_by

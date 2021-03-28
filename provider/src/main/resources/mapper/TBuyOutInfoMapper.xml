@@ -304,4 +304,57 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+  <resultMap id="DTOResultMap" type="com.hltj.api.dto.BuyOutInfoDTO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="buy_out_date" jdbcType="TIMESTAMP" property="buyOutDate" />
+    <result column="stock_code" jdbcType="VARCHAR" property="stockCode" />
+    <result column="stock_name" jdbcType="VARCHAR" property="stockName" />
+    <result column="buy_out_number" jdbcType="INTEGER" property="buyOutNumber" />
+    <result column="buy_out_price" jdbcType="DECIMAL" property="buyOutPrice" />
+    <result column="buy_out_profit" jdbcType="DECIMAL" property="buyOutProfit" />
+    <result column="create_datetime" jdbcType="TIMESTAMP" property="createDatetime" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="update_datetime" jdbcType="TIMESTAMP" property="updateDatetime" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+  </resultMap>
+
+  <select id="selectByBuyOutInfoDTO" resultMap="DTOResultMap" parameterType="com.hltj.api.dto.BuyOutInfoDTO">
+    select
+    a.id, a.customer_id, b.customer_name,a.buy_out_date, a.stock_code, c.stock_name, a.buy_out_number, a.buy_out_price, a.buy_out_profit,
+    a.create_datetime, a.created_by, a.update_datetime, a.updated_by
+    from t_buy_out_info a
+    left join t_customer b on (a.customer_id = b.customer_id)
+    left join t_stock_info c on (a.stock_code = c.stock_code)
+    <trim prefix="WHERE" prefixOverrides="AND | OR ">
+      <if test="param.customerId !=null and param.customerId !='' ">
+        and a.customer_id like CONCAT('%,',#{param.customerId},',%')
+      </if>
+      <if test="param.customerName !=null and param.customerName !='' ">
+        and b.customer_name like CONCAT('%,',#{param.customerName},',%')
+      </if>
+    </trim>
+
+    order by create_datetime desc
+    <if test="param.startNum >= 0" >
+      limit ${param.startNum},${param.pageSize}
+    </if>
+  </select>
+  <select id="selectTotalByBuyOutInfoDTO" resultType="int">
+    select count(1)
+    from t_buy_out_info a
+    <if test="param.customerName !=null and param.customerName !='' ">
+      left join t_customer b on (a.customer_id = b.customer_id)
+    </if>
+    <trim prefix="WHERE" prefixOverrides="AND | OR ">
+      <if test="param.customerId !=null and param.customerId !='' ">
+        and a.customer_id like CONCAT('%,',#{param.customerId},',%')
+      </if>
+      <if test="param.customerName !=null and param.customerName !='' ">
+        and b.customer_name like CONCAT('%,',#{param.customerName},',%')
+      </if>
+    </trim>
+  </select>
+
 </mapper>
