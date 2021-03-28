@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hltj.api.dao.TLuckyInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hltj.api.domain.TLuckyInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="lucky_number" property="luckyNumber" jdbcType="INTEGER" />
+    <result column="create_datetime" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="update_datetime" property="updateDatetime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, customer_id, stock_code, lucky_number, create_datetime, created_by, update_datetime, 
+    updated_by
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hltj.api.domain.TLuckyInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_lucky_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_lucky_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_lucky_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hltj.api.domain.TLuckyInfoExample" >
+    delete from t_lucky_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hltj.api.domain.TLuckyInfo" >
+    insert into t_lucky_info (id, customer_id, stock_code, 
+      lucky_number, create_datetime, created_by, 
+      update_datetime, updated_by)
+    values (#{id,jdbcType=INTEGER}, #{customerId,jdbcType=VARCHAR}, #{stockCode,jdbcType=VARCHAR}, 
+      #{luckyNumber,jdbcType=INTEGER}, #{createDatetime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, 
+      #{updateDatetime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hltj.api.domain.TLuckyInfo" >
+    insert into t_lucky_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="luckyNumber != null" >
+        lucky_number,
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="luckyNumber != null" >
+        #{luckyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="createDatetime != null" >
+        #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hltj.api.domain.TLuckyInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_lucky_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_lucky_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerId != null" >
+        customer_id = #{record.customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockCode != null" >
+        stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.luckyNumber != null" >
+        lucky_number = #{record.luckyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDatetime != null" >
+        create_datetime = #{record.createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDatetime != null" >
+        update_datetime = #{record.updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_lucky_info
+    set id = #{record.id,jdbcType=INTEGER},
+      customer_id = #{record.customerId,jdbcType=VARCHAR},
+      stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      lucky_number = #{record.luckyNumber,jdbcType=INTEGER},
+      create_datetime = #{record.createDatetime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      update_datetime = #{record.updateDatetime,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hltj.api.domain.TLuckyInfo" >
+    update t_lucky_info
+    <set >
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="luckyNumber != null" >
+        lucky_number = #{luckyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hltj.api.domain.TLuckyInfo" >
+    update t_lucky_info
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      stock_code = #{stockCode,jdbcType=VARCHAR},
+      lucky_number = #{luckyNumber,jdbcType=INTEGER},
+      create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <resultMap id="DTOResultMap" type="com.hltj.api.dto.LuckyInfoDTO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="lucky_number" property="luckyNumber" jdbcType="INTEGER" />
+    <result column="create_datetime" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="update_datetime" property="updateDatetime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="queryByCaluse">
+    <trim prefix="WHERE" prefixOverrides="AND | OR ">
+      <if test="param.stockCode !=null and param.stockCode !='' ">
+        and stock_code like CONCAT('%,',#{param.stockCode},',%')
+      </if>
+      <if test="param.stockMarket !=null and param.stockMarket !='' ">
+        and stock_market = #{param.stockMarket}
+      </if>
+    </trim>
+  </sql>
+
+  <select id="selectByLuckyInfoDTO" resultType="DTOResultMap" parameterType="com.hltj.api.dto.LuckyInfoDTO">
+    select
+      a.id,a.customer_id,b.customer_name,a.stock_code,c.stock_name, a.create_datetime, a.created_by, a.update_datetime,
+    a.updated_by
+    from t_lucky_info a
+    left join t_customer b on (a.customer_id = b.customer_id)
+    left join t_stock_info c on (a.stock_code = c.stock_code)
+    <trim prefix="WHERE" prefixOverrides="AND | OR ">
+      <if test="param.customerId !=null and param.customerId !='' ">
+        and a.customer_id like CONCAT('%,',#{param.customerId},',%')
+      </if>
+      <if test="param.customerName !=null and param.customerName !='' ">
+        and b.customer_name like CONCAT('%,',#{param.customerName},',%')
+      </if>
+    </trim>
+
+    order by create_datetime desc
+    <if test="param.startNum >= 0" >
+      limit ${param.startNum},${param.pageSize}
+    </if>
+  </select>
+  <select id="selectTotalByLuckyInfoDTO" resultType="int">
+    select count(1)
+    from t_lucky_info a
+    <if test="param.customerName !=null and param.customerName !='' ">
+     left join t_customer b on (a.customer_id = b.customer_id)
+    </if>
+    <trim prefix="WHERE" prefixOverrides="AND | OR ">
+      <if test="param.customerId !=null and param.customerId !='' ">
+        and a.customer_id like CONCAT('%,',#{param.customerId},',%')
+      </if>
+      <if test="param.customerName !=null and param.customerName !='' ">
+        and b.customer_name like CONCAT('%,',#{param.customerName},',%')
+      </if>
+    </trim>
+  </select>
+</mapper>

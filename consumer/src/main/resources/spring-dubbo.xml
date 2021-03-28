@@ -17,5 +17,6 @@
     <dubbo:reference id="customerService" interface="com.hltj.api.service.CustomerService"/>
     <dubbo:reference id="stockInfoService" interface="com.hltj.api.service.StockInfoService" timeout="10000"/>
     <dubbo:reference id="stockStrategyService" interface="com.hltj.api.service.StockStrategyService"/>
-
+    <dubbo:reference id="luckyInfoService" interface="com.hltj.api.service.LuckyInfoService"/>
+    <dubbo:reference id="buyOutInfoService" interface="com.hltj.api.service.BuyOutInfoService"/>
 </beans>

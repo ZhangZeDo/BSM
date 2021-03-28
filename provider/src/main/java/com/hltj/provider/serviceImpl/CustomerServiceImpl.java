@@ -70,7 +70,8 @@ public class CustomerServiceImpl implements CustomerService {
         logger.info("当前客户信息已录入，不再重复操作");
     }
 
-    private TCustomer queryCustomerByOpenID(String openId){
+    @Override
+    public TCustomer queryCustomerByOpenID(String openId){
         TCustomerExample example = new TCustomerExample();
         example.createCriteria().andOpenIdEqualTo(openId);
         List<TCustomer> customerList = customerDao.selectByExample(example);

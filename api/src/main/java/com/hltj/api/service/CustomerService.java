@@ -13,4 +13,6 @@ public interface CustomerService {
     PageResponseResult queryCustomerList(CustomerDTO customerDTO);
 
     void insertCustomerInfo(TCustomer customer,String operator);
+
+    TCustomer queryCustomerByOpenID(String openId);
 }

@@ -22,4 +22,6 @@
     <dubbo:service interface="com.hltj.api.service.StockInfoService" ref="stockInfoService" timeout="10000"/>
     <dubbo:service interface="com.hltj.api.service.StockStrategyService" ref="stockStrategyService"/>
 
+    <dubbo:service interface="com.hltj.api.service.LuckyInfoService" ref="luckyInfoService"/>
+    <dubbo:service interface="com.hltj.api.service.BuyOutInfoService" ref="buyOutInfoService"/>
 </beans>

@@ -36,4 +36,11 @@ public interface StockInfoService {
      * @param key
      */
     void deleteStockInfo(String key);
+
+    /**
+     * 根据股票代码查询对应的股票信息
+     * @param stockCode
+     * @return
+     */
+    TStockInfo queryStockInfoByStockCode(String stockCode);
 }

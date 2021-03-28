@@ -1,9 +1,12 @@
 package com.hltj.provider.serviceImpl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.hltj.api.dao.TStockInfoMapper;
 import com.hltj.api.domain.TStockInfo;
+import com.hltj.api.domain.TStockInfoExample;
 import com.hltj.api.dto.PageResponseResult;
 import com.hltj.api.dto.StockInfoDTO;
+import com.hltj.api.enums.EntityStatus;
 import com.hltj.api.enums.TableId;
 import com.hltj.api.exception.BussException;
 import com.hltj.api.service.SequenceService;
@@ -13,6 +16,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import javax.annotation.Resource;
 import java.util.*;
 
@@ -77,6 +82,18 @@ public class StockInfoServiceImpl implements StockInfoService {
             throw new BussException("删除股票的主键不能为空");
         }
         stockInfoDao.deleteByPrimaryKey(key);
+    }
+
+    @Override
+    public TStockInfo queryStockInfoByStockCode(String stockCode) {
+        TStockInfoExample stockInfoExample = new TStockInfoExample();
+        stockInfoExample.createCriteria().andStatusEqualTo(EntityStatus.Valid.getCode())
+                .andStockCodeEqualTo(stockCode);
+        List<TStockInfo> stockInfoList = stockInfoDao.selectByExample(stockInfoExample);
+        if (CollectionUtils.isEmpty(stockInfoList)){
+            throw new BussException("未找到对应的股票代码信息");
+        }
+        return stockInfoList.get(0);
     }
 
 
