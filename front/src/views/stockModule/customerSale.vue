@@ -89,8 +89,17 @@
         },
         created(){
             this.queryData()
+            this.insert()
         },
         methods:{
+            insert(){
+                this.$axios.post('/buyOutInfo/insertBuyOutInfo',{
+                    openId:"111111",
+                    stockCode:'01643',
+                    buyOutNumber:5,
+                    buyOutPrice:100
+                })
+            },
             queryData(){
                 this.$axios.post('/buyOutInfo/queryBuyOutInfoList',{
                     customerName:this.queryForm.customerName,

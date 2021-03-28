@@ -273,7 +273,7 @@
 
   <select id="selectByLuckyInfoDTO" resultMap="DTOResultMap" parameterType="com.hltj.api.dto.LuckyInfoDTO">
     select
-      a.id,a.customer_id,b.customer_name,a.stock_code,c.stock_name, a.create_datetime, a.created_by, a.update_datetime,
+      a.id,a.customer_id,b.customer_name,a.stock_code,c.stock_name,a.lucky_number, a.create_datetime, a.created_by, a.update_datetime,
     a.updated_by
     from t_lucky_info a
     left join t_customer b on (a.customer_id = b.customer_id)

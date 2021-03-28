@@ -76,7 +76,7 @@
             }
         },
         created(){
-            this.queryData()
+            this.queryData();
         },
         methods:{
             queryData(){

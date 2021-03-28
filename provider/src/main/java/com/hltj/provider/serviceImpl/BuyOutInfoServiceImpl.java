@@ -59,6 +59,8 @@ public class BuyOutInfoServiceImpl implements BuyOutInfoService {
         BigDecimal buyOutProfit = new BigDecimal(buyOutInfo.getBuyOutNumber()).multiply(stockInfo.getHeap()).multiply(buyOutInfo.getBuyOutPrice().subtract(stockInfo.getIssuePrice()));
         buyOutInfo.setBuyOutProfit(buyOutProfit.setScale(2));
 
+        buyOutInfo.setCreatedBy(operator);
+        buyOutInfo.setUpdatedBy(operator);
         buyOutInfoDao.insertSelective(buyOutInfo);
     }
 

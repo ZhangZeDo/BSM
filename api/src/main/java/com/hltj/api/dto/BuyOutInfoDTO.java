@@ -31,6 +31,12 @@ public class BuyOutInfoDTO extends Pager {
 
     private Date createDatetime;
 
+    private String createdBy;
+
+    private Date updateDatetime;
+
+    private String updatedBy;
+
     private String openId;
 
     public Integer getId() {
@@ -119,5 +125,29 @@ public class BuyOutInfoDTO extends Pager {
 
     public void setOpenId(String openId) {
         this.openId = openId;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getUpdateDatetime() {
+        return updateDatetime;
+    }
+
+    public void setUpdateDatetime(Date updateDatetime) {
+        this.updateDatetime = updateDatetime;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 }

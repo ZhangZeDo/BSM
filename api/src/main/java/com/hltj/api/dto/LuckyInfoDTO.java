@@ -26,6 +26,12 @@ public class LuckyInfoDTO extends Pager {
 
     private Date createDatetime;
 
+    private String createdBy;
+
+    private Date updateDatetime;
+
+    private String updatedBy;
+
     public String getCustomerName() {
         return customerName;
     }
@@ -88,5 +94,29 @@ public class LuckyInfoDTO extends Pager {
 
     public void setCreateDatetime(Date createDatetime) {
         this.createDatetime = createDatetime;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getUpdateDatetime() {
+        return updateDatetime;
+    }
+
+    public void setUpdateDatetime(Date updateDatetime) {
+        this.updateDatetime = updateDatetime;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 }
