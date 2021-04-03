@@ -329,10 +329,10 @@
     left join t_stock_info c on (a.stock_code = c.stock_code)
     <trim prefix="WHERE" prefixOverrides="AND | OR ">
       <if test="param.customerId !=null and param.customerId !='' ">
-        and a.customer_id like CONCAT('%,',#{param.customerId},',%')
+        and a.customer_id like CONCAT('%',#{param.customerId},'%')
       </if>
       <if test="param.customerName !=null and param.customerName !='' ">
-        and b.customer_name like CONCAT('%,',#{param.customerName},',%')
+        and b.customer_name like CONCAT('%',#{param.customerName},'%')
       </if>
     </trim>
 
@@ -349,10 +349,10 @@
     </if>
     <trim prefix="WHERE" prefixOverrides="AND | OR ">
       <if test="param.customerId !=null and param.customerId !='' ">
-        and a.customer_id like CONCAT('%,',#{param.customerId},',%')
+        and a.customer_id like CONCAT('%',#{param.customerId},'%')
       </if>
       <if test="param.customerName !=null and param.customerName !='' ">
-        and b.customer_name like CONCAT('%,',#{param.customerName},',%')
+        and b.customer_name like CONCAT('%',#{param.customerName},'%')
       </if>
     </trim>
   </select>

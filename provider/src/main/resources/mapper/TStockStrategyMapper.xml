@@ -432,10 +432,10 @@
   <sql id="queryByCaluse">
     <trim prefix="WHERE" prefixOverrides="AND | OR ">
       <if test="param.stockCode !=null and param.stockCode !='' ">
-        and stock_code = CONCAT('%,',#{param.stockCode},',%')
+        and stock_code like CONCAT('%',#{param.stockCode},'%')
       </if>
       <if test="param.stockName !=null and param.stockName !='' ">
-        and stock_name = CONCAT('%,',#{param.stockName},',%')
+        and stock_name like CONCAT('%',#{param.stockName},'%')
       </if>
     </trim>
   </sql>

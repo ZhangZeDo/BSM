@@ -9,6 +9,7 @@ import com.hltj.api.domain.Pager;
  */
 public class StockInfoDTO extends Pager {
     private String stockCode;
+    private String stockName;
     private String stockMarket;
 
     public String getStockCode() {
@@ -17,6 +18,14 @@ public class StockInfoDTO extends Pager {
 
     public void setStockCode(String stockCode) {
         this.stockCode = stockCode;
+    }
+
+    public String getStockName() {
+        return stockName;
+    }
+
+    public void setStockName(String stockName) {
+        this.stockName = stockName;
     }
 
     public String getStockMarket() {

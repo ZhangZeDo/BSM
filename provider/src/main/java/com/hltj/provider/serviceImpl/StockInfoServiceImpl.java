@@ -96,5 +96,17 @@ public class StockInfoServiceImpl implements StockInfoService {
         return stockInfoList.get(0);
     }
 
+    @Override
+    public TStockInfo queryStockInfoByStockName(String stockName) {
+        TStockInfoExample stockInfoExample = new TStockInfoExample();
+        stockInfoExample.createCriteria().andStatusEqualTo(EntityStatus.Valid.getCode())
+                .andStockNameEqualTo(stockName);
+        List<TStockInfo> stockInfoList = stockInfoDao.selectByExample(stockInfoExample);
+        if (CollectionUtils.isEmpty(stockInfoList)){
+            throw new BussException("未找到对应的股票代码信息");
+        }
+        return stockInfoList.get(0);
+    }
+
 
 }

@@ -43,4 +43,6 @@ public interface StockInfoService {
      * @return
      */
     TStockInfo queryStockInfoByStockCode(String stockCode);
+
+    TStockInfo queryStockInfoByStockName(String stockName);
 }

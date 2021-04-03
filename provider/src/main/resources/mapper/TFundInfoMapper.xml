@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hltj.api.dao.TFundInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hltj.api.domain.TFundInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="fund_name" property="fundName" jdbcType="VARCHAR" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="buy_inout_date" property="buyInoutDate" jdbcType="TIMESTAMP" />
+    <result column="operate_direct" property="operateDirect" jdbcType="TINYINT" />
+    <result column="stock_num" property="stockNum" jdbcType="DECIMAL" />
+    <result column="stock_rate" property="stockRate" jdbcType="DECIMAL" />
+    <result column="buy_inout_price" property="buyInoutPrice" jdbcType="DECIMAL" />
+    <result column="create_datetime" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="update_datetime" property="updateDatetime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="DTOResultMap" type="com.hltj.api.dto.FundInfoDTO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="fund_name" property="fundName" jdbcType="VARCHAR" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="buy_inout_date" property="buyInoutDate" jdbcType="TIMESTAMP" />
+    <result column="operate_direct" property="operateDirect" jdbcType="TINYINT" />
+    <result column="stock_num" property="stockNum" jdbcType="DECIMAL" />
+    <result column="stock_rate" property="stockRate" jdbcType="DECIMAL" />
+    <result column="buy_inout_price" property="buyInoutPrice" jdbcType="DECIMAL" />
+    <result column="create_datetime" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="update_datetime" property="updateDatetime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, fund_name, stock_code, buy_inout_date, operate_direct, stock_num, stock_rate, 
+    buy_inout_price, create_datetime, created_by, update_datetime, updated_by
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hltj.api.domain.TFundInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_fund_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_fund_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_fund_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hltj.api.domain.TFundInfoExample" >
+    delete from t_fund_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hltj.api.domain.TFundInfo" >
+    insert into t_fund_info (id, fund_name, stock_code, 
+      buy_inout_date, operate_direct, stock_num, 
+      stock_rate, buy_inout_price, create_datetime, 
+      created_by, update_datetime, updated_by
+      )
+    values (#{id,jdbcType=INTEGER}, #{fundName,jdbcType=VARCHAR}, #{stockCode,jdbcType=VARCHAR}, 
+      #{buyInoutDate,jdbcType=TIMESTAMP}, #{operateDirect,jdbcType=TINYINT}, #{stockNum,jdbcType=DECIMAL}, 
+      #{stockRate,jdbcType=DECIMAL}, #{buyInoutPrice,jdbcType=DECIMAL}, #{createDatetime,jdbcType=TIMESTAMP}, 
+      #{createdBy,jdbcType=VARCHAR}, #{updateDatetime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hltj.api.domain.TFundInfo" >
+    insert into t_fund_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fundName != null" >
+        fund_name,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="buyInoutDate != null" >
+        buy_inout_date,
+      </if>
+      <if test="operateDirect != null" >
+        operate_direct,
+      </if>
+      <if test="stockNum != null" >
+        stock_num,
+      </if>
+      <if test="stockRate != null" >
+        stock_rate,
+      </if>
+      <if test="buyInoutPrice != null" >
+        buy_inout_price,
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fundName != null" >
+        #{fundName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="buyInoutDate != null" >
+        #{buyInoutDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateDirect != null" >
+        #{operateDirect,jdbcType=TINYINT},
+      </if>
+      <if test="stockNum != null" >
+        #{stockNum,jdbcType=DECIMAL},
+      </if>
+      <if test="stockRate != null" >
+        #{stockRate,jdbcType=DECIMAL},
+      </if>
+      <if test="buyInoutPrice != null" >
+        #{buyInoutPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createDatetime != null" >
+        #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hltj.api.domain.TFundInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_fund_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_fund_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.fundName != null" >
+        fund_name = #{record.fundName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockCode != null" >
+        stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyInoutDate != null" >
+        buy_inout_date = #{record.buyInoutDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.operateDirect != null" >
+        operate_direct = #{record.operateDirect,jdbcType=TINYINT},
+      </if>
+      <if test="record.stockNum != null" >
+        stock_num = #{record.stockNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stockRate != null" >
+        stock_rate = #{record.stockRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.buyInoutPrice != null" >
+        buy_inout_price = #{record.buyInoutPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createDatetime != null" >
+        create_datetime = #{record.createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDatetime != null" >
+        update_datetime = #{record.updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_fund_info
+    set id = #{record.id,jdbcType=INTEGER},
+      fund_name = #{record.fundName,jdbcType=VARCHAR},
+      stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      buy_inout_date = #{record.buyInoutDate,jdbcType=TIMESTAMP},
+      operate_direct = #{record.operateDirect,jdbcType=TINYINT},
+      stock_num = #{record.stockNum,jdbcType=DECIMAL},
+      stock_rate = #{record.stockRate,jdbcType=DECIMAL},
+      buy_inout_price = #{record.buyInoutPrice,jdbcType=DECIMAL},
+      create_datetime = #{record.createDatetime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      update_datetime = #{record.updateDatetime,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hltj.api.domain.TFundInfo" >
+    update t_fund_info
+    <set >
+      <if test="fundName != null" >
+        fund_name = #{fundName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="buyInoutDate != null" >
+        buy_inout_date = #{buyInoutDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateDirect != null" >
+        operate_direct = #{operateDirect,jdbcType=TINYINT},
+      </if>
+      <if test="stockNum != null" >
+        stock_num = #{stockNum,jdbcType=DECIMAL},
+      </if>
+      <if test="stockRate != null" >
+        stock_rate = #{stockRate,jdbcType=DECIMAL},
+      </if>
+      <if test="buyInoutPrice != null" >
+        buy_inout_price = #{buyInoutPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hltj.api.domain.TFundInfo" >
+    update t_fund_info
+    set fund_name = #{fundName,jdbcType=VARCHAR},
+      stock_code = #{stockCode,jdbcType=VARCHAR},
+      buy_inout_date = #{buyInoutDate,jdbcType=TIMESTAMP},
+      operate_direct = #{operateDirect,jdbcType=TINYINT},
+      stock_num = #{stockNum,jdbcType=DECIMAL},
+      stock_rate = #{stockRate,jdbcType=DECIMAL},
+      buy_inout_price = #{buyInoutPrice,jdbcType=DECIMAL},
+      create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+  <select id="selectByFundInfoDTO" resultMap="DTOResultMap" parameterType="com.hltj.api.dto.FundInfoDTO">
+    select
+    a.id, a.fund_name, a.stock_code,b.stock_name,
+    a.buy_inout_date, a.operate_direct, a.stock_num,
+    a.stock_rate, a.buy_inout_price, a.create_datetime,
+    a.created_by, a.update_datetime, a.updated_by
+    from t_fund_info a
+    left join t_stock_info b on (a.stock_code = b.stock_code)
+    <trim prefix="WHERE" prefixOverrides="AND | OR ">
+      <if test="param.fundName !=null and param.fundName !='' ">
+        and a.fund_name like CONCAT('%',#{param.fundName},'%')
+      </if>
+      <if test="param.operateDirect !=null and param.operateDirect !='' ">
+        and a.operate_direct = #{param.operateDirect}
+      </if>
+      <if test="param.stockName !=null and param.stockName !='' ">
+        and b.stock_name like CONCAT('%',#{param.stockName},'%')
+      </if>
+    </trim>
+    order by create_datetime desc
+    <if test="param.startNum >= 0" >
+      limit ${param.startNum},${param.pageSize}
+    </if>
+  </select>
+  <select id="selectTotalByFundInfoDTO" resultType="int">
+    select count(1)
+    from t_fund_info a
+    <if test="param.stockName !=null and param.stockName !='' ">
+      left join t_stock_info b on (a.stock_code = b.stock_code)
+    </if>
+    <trim prefix="WHERE" prefixOverrides="AND | OR ">
+      <if test="param.fundName !=null and param.fundName !='' ">
+        and a.fund_name like CONCAT('%',#{param.fundName},'%')
+      </if>
+      <if test="param.operateDirect !=null and param.operateDirect !='' ">
+        and a.operate_direct = #{param.operateDirect}
+      </if>
+      <if test="param.stockName !=null and param.stockName !='' ">
+        and b.stock_name like CONCAT('%',#{param.stockName},'%')
+      </if>
+    </trim>
+  </select>
+
+  <select id="queryFundNameGroupList" resultType="java.lang.String">
+    select fund_name from t_fund_info
+    group by fund_name
+  </select>
+</mapper>

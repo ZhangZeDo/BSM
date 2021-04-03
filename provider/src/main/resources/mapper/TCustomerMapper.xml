@@ -277,10 +277,10 @@
   <sql id="queryByCaluse">
     <trim prefix="WHERE" prefixOverrides="AND | OR ">
       <if test="param.customerPhone !=null and param.customerPhone !='' ">
-        and customer_phone = #{param.customerPhone}
+        and customer_phone like CONCAT('%',#{param.customerPhone},'%')
       </if>
       <if test="param.customerId !=null and param.customerId !='' ">
-        and customer_id = #{param.customerId}
+        and customer_id like CONCAT('%',#{param.customerId},'%')
       </if>
     </trim>
   </sql>
