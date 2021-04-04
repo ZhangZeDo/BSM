@@ -73,4 +73,12 @@ public class FundInfoServiceImpl implements FundInfoService {
     public void deleteFundInfo(int id) {
         fundInfoDao.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public void updateFundInfo(FundInfoDTO fundInfoDTO, String operator) {
+        TFundInfo fundInfo = new TFundInfo();
+        BeanUtils.copyProperties(fundInfoDTO,fundInfo);
+        fundInfo.setUpdatedBy(operator);
+        fundInfoDao.updateByPrimaryKey(fundInfo);
+    }
 }

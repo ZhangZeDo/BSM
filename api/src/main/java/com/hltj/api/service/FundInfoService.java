@@ -22,4 +22,7 @@ public interface FundInfoService {
 
     //删除基金信息
     void deleteFundInfo(int id);
+
+    //更新基金信息
+    void updateFundInfo(FundInfoDTO fundInfoDTO,String operator);
 }

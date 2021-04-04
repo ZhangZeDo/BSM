@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -80,6 +81,7 @@ public class FundInfoController extends BaseController {
             return ResponseResult.error("查询基金枚举列表失败");
         }
     }
+
     @RequestMapping(value = "deleteFundInfo",method = RequestMethod.POST)
     @ResponseBody
     public Object deleteFundInfo(@RequestBody FundInfoDTO fundInfoDTO) {
@@ -91,5 +93,19 @@ public class FundInfoController extends BaseController {
             return ResponseResult.error("删除基金信息失败");
         }
     }
+
+    @RequestMapping(value = "updateFundInfo",method = RequestMethod.POST)
+    @ResponseBody
+    public Object updateFundInfo(@RequestBody FundInfoDTO fundInfoDTO, HttpServletRequest request) {
+        try {
+            String operator = getOperator(request);
+            fundInfoService.updateFundInfo(fundInfoDTO,operator);
+            return ResponseResult.success();
+        }catch (Exception e){
+            logger.error("更新基金信息失败，原因：",e);
+            return ResponseResult.error("更新基金信息失败");
+        }
+    }
+
 
 }

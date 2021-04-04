@@ -86,6 +86,9 @@ public class StockInfoServiceImpl implements StockInfoService {
 
     @Override
     public TStockInfo queryStockInfoByStockCode(String stockCode) {
+        if (StringUtils.isBlank(stockCode)){
+            throw new BussException("股票代码不能为空");
+        }
         TStockInfoExample stockInfoExample = new TStockInfoExample();
         stockInfoExample.createCriteria().andStatusEqualTo(EntityStatus.Valid.getCode())
                 .andStockCodeEqualTo(stockCode);
@@ -98,6 +101,9 @@ public class StockInfoServiceImpl implements StockInfoService {
 
     @Override
     public TStockInfo queryStockInfoByStockName(String stockName) {
+        if (StringUtils.isBlank(stockName)){
+            throw new BussException("股票名称不能为空");
+        }
         TStockInfoExample stockInfoExample = new TStockInfoExample();
         stockInfoExample.createCriteria().andStatusEqualTo(EntityStatus.Valid.getCode())
                 .andStockNameEqualTo(stockName);

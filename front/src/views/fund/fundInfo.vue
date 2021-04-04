@@ -53,7 +53,7 @@
                     </el-table-column>
                     <el-table-column prop="createDatetime" label="操作方向"  width="200">
                         <template slot-scope="scope">
-                            {{parseOperateDirect(scope.row.operateDirect) }}
+                            {{parseOperateDirectLabel(scope.row.operateDirect) }}
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -71,7 +71,7 @@
                     </el-table-column>
                     <el-table-column label="操作">
                         <template slot-scope="scope">
-                            <el-link type="primary" @click="updateStockStatus(scope.row)">编辑</el-link>
+                            <el-link type="primary" @click="showDialog('update',scope.row)">编辑</el-link>
                             <el-link style="padding-left: 20px" type="primary" @click="deleteFundInfo(scope.row)">删除</el-link>
                         </template>
                     </el-table-column>
@@ -153,7 +153,7 @@
 
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="submitUploadForm">提交</el-button>
+                <el-button type="primary" @click="submitDialogForm">提交</el-button>
             </span>
         </el-dialog>
     </div>
@@ -181,6 +181,7 @@
 
                 dialogTitle:'',
                 dialogVisible:false,
+                dialogOperate:'',
                 submitForm:{
                     fundName:'',
                     stockCode:'',
@@ -222,13 +223,17 @@
                     }
                 });
             },
-            showDialog(operate){
-                if (operate == 'create'){
-                    this.dialogTitle = '新增基金信息'
-                    this.dialogVisible = true
-                } else if (operate == 'update'){
-                    this.dialogTitle = '编辑基金信息'
-                    this.dialogVisible = true
+            showDialog(operate,row){
+                if (operate === 'create'){
+                    this.dialogOperate = 'create';
+                    this.dialogTitle = '新增基金信息';
+                    this.dialogVisible = true;
+                } else if (operate === 'update'){
+                    this.dialogOperate = 'update';
+                    this.dialogTitle = '编辑基金信息';
+                    this.dialogVisible = true;
+                    this.submitForm = row;
+                    this.submitForm.operateDirect = this.parseOperateDirectLabel(this.submitForm.operateDirect)
                 }
             },
             handleSizeChange(val) {
@@ -250,26 +255,55 @@
                 var second = ("0" + date.getSeconds()).slice(-2);
                 return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + second;
             },
-            parseOperateDirect(row){
+            parseOperateDirectLabel(row){
                 for (const direct of this.directList) {
                     if (direct.value == row){
                         return direct.label
                     }
                 }
             },
-            submitUploadForm(){
-                this.$axios.post('/fundInfo/insertFundInfo',
-                    this.submitForm
-                ).then(resp=>{
-                    if (resp.code == 200) {
-                        this.$message.success("操作成功");
-                        this.dialogVisible = false;
-                        this.queryData();
-                        this.queryFundNameList();
-                    }else{
-                        this.$message.error(resp.data.message);
+            parseOperateDirecValue(row){
+                for (const direct of this.directList) {
+                    if (direct.label == row){
+                        return direct.value
                     }
-                });
+                }
+            },
+            submitDialogForm(){
+                if (this.dialogOperate === 'create') {
+                    this.$axios.post('/fundInfo/insertFundInfo',
+                        this.submitForm
+                    ).then(resp=>{
+                        if (resp.code == 200) {
+                            this.$message.success("操作成功");
+                            this.dialogVisible = false;
+                            this.queryData();
+                            this.queryFundNameList();
+                            this.resetSubmitForm();
+                        }else{
+                            this.$message.error(resp.data.message);
+                        }
+                    });
+                }else if (this.dialogOperate === 'update'){
+                    this.submitForm.operateDirect = this.parseOperateDirecValue(this.submitForm.operateDirect)
+                    this.$axios.post('/fundInfo/updateFundInfo',
+                        this.submitForm
+                    ).then(resp=>{
+                        if (resp.code == 200) {
+                            this.$message.success("操作成功");
+                            this.dialogVisible = false;
+                            this.queryData();
+                            this.queryFundNameList();
+                            this.resetSubmitForm();
+                        }else{
+                            this.$message.error(resp.data.message);
+                        }
+                    });
+                }
+
+            },
+            resetSubmitForm(){
+              this.submitForm = {}
             },
             queryStockInfoList(queryValue){
                 this.$axios.post('/stockInfo/queryStockInfoList',{
@@ -288,6 +322,8 @@
                 }).then(resp=>{
                     if (resp.code == 200) {
                         this.$message.success("删除成功");
+                        this.queryData();
+                        this.queryFundNameList();
                     }
                 });
             }

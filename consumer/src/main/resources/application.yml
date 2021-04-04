@@ -35,6 +35,5 @@ spring:
       max-file-size: 10240MB
       max-request-size: 10240MB
 
-
-#constants:
+moduleImageSavePath: D:/Program Files/fileDepository/moduleImage
 

@@ -8,7 +8,7 @@
                 <el-row>
                     <el-col>
                         <span>股票代码：</span> <el-input style="width: 220px" placeholder="请输入" v-model="queryForm.stockCode" @input="queryData" clearable/>
-                        <el-button type="primary" style="margin-left: 30px" @click="showCreateDialog">新增新股申购策略</el-button>
+                        <el-button type="primary" style="margin-left: 30px" @click="showDialog('create')">新增新股申购策略</el-button>
                     </el-col>
                 </el-row>
             </div>
@@ -38,7 +38,8 @@
                         <template slot-scope="scope">
                             <el-link v-if="scope.row.status===1" type="primary" @click="updateStockStatus(scope.row)">失效</el-link>
                             <el-link v-if="scope.row.status===2" type="primary" @click="updateStockStatus(scope.row)">启用</el-link>
-                            <el-link style="padding-left: 10px" type="primary" >查看</el-link>
+                            <el-link style="padding-left: 10px" type="primary" @click="showDialog('show',scope.row)">查看</el-link>
+                            <el-link style="padding-left: 10px" type="primary" @click="showDialog('update',scope.row)">编辑</el-link>
                             <el-link style="padding-left: 10px" type="danger" @click="deleteStockInfo(scope.row)">删除</el-link>
                         </template>
                     </el-table-column>
@@ -58,50 +59,53 @@
                 </div>
             </div>
         </el-card>
-        <el-dialog title="新增新股策略" :visible.sync="dialogCreateVisible">
+        <el-dialog :title=this.dialogTitle :visible.sync="dialogVisible">
             <el-form ref="form" :model="submitForm" label-width="120px">
                 <el-row :gutter="24">
                     <el-col :span="12">
                         <el-form-item label="股票名称">
-                            <el-input v-model="submitForm.stockName" placeholder="股票名称"></el-input>
+                            <el-select v-model="submitForm.stockName"
+                                       filterable remote :remote-method="queryStockInfoList" placeholder="股票名称" :disabled="canNotUpdateForm">
+                                <el-option v-for="(item,index) in stockInfoList" :key="item+index" :label="item.stockName" :value="item.stockName"></el-option>
+                            </el-select>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row :gutter="24">
                     <el-col :span="12">
                         <el-form-item label="开始招股时间">
-                            <el-date-picker v-model="submitForm.startShareDate" type="date" placeholder="选择日期"/>
+                            <el-date-picker v-model="submitForm.startShareDate" type="date" placeholder="选择日期" :disabled="canNotUpdateForm"/>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="结束招股时间">
-                            <el-date-picker v-model="submitForm.endShareDate" type="date" placeholder="选择日期"/>
+                            <el-date-picker v-model="submitForm.endShareDate" type="date" placeholder="选择日期" :disabled="canNotUpdateForm"/>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
                         <el-form-item label="股票暗盘时间">
-                            <el-date-picker v-model="submitForm.darkDate" type="date" placeholder="选择日期"/>
+                            <el-date-picker v-model="submitForm.darkDate" type="date" placeholder="选择日期" :disabled="canNotUpdateForm"/>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="股票上市时间">
-                            <el-date-picker v-model="submitForm.listingDate" type="date" placeholder="选择日期"/>
+                            <el-date-picker v-model="submitForm.listingDate" type="date" placeholder="选择日期" :disabled="canNotUpdateForm"/>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row :gutter="24">
                     <el-col :span="12">
                         <el-form-item label="模块名称">
-                            <el-input v-model="submitForm.moduleName" placeholder="模块名称"></el-input>
+                            <el-input v-model="submitForm.moduleName" placeholder="模块名称" :disabled="canNotUpdateForm"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row :gutter="24">
                     <el-col :span="22">
                         <el-form-item label="文本内容">
-                            <el-input type="textarea" :rows="4" placeholder="请输入文本内容" v-model="submitForm.moduleContent"></el-input>
+                            <el-input type="textarea" :rows="4" placeholder="请输入文本内容" v-model="submitForm.moduleContent" :disabled="canNotUpdateForm"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -127,8 +131,8 @@
             </el-form>
 
             <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogCreateVisible = false">取 消</el-button>
-                <el-button type="primary" @click="submitUploadForm">提交</el-button>
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button v-if="!canNotUpdateForm" type="primary" @click="submitDialogForm">提交</el-button>
             </span>
         </el-dialog>
     </div>
@@ -155,16 +159,34 @@
                 },
                 total:0,
                 tableList:[],
-                dialogCreateVisible:false,
+                dialogVisible:false,
+                dialogTitle:'',
                 pictureFileList:[],
+                stockInfoList:[],
+                canNotUpdateForm:false
             }
         },
         created(){
-            this.queryData()
+            this.queryData();
+            this.queryStockInfoList();
         },
         methods:{
-            showCreateDialog(){
-                this.dialogCreateVisible = true
+            showDialog(operate,row){
+                if (operate === 'create'){
+                    this.dialogVisible = true;
+                    this.dialogTitle = '新增新股申购策略';
+                    this.canNotUpdateForm = false;
+                }else if (operate === 'update'){
+                    this.dialogVisible = true;
+                    this.dialogTitle = '修改新股申购策略';
+                    this.submitForm = row;
+                    this.canNotUpdateForm = false
+                }else if (operate === 'show') {
+                    this.dialogVisible = true;
+                    this.submitForm = row;
+                    this.dialogTitle = '查看新股申购策略';
+                    this.canNotUpdateForm = true;
+                }
             },
             queryData(){
                 this.$axios.post('/stockStrategy/queryStockStrategyList',{
@@ -175,6 +197,17 @@
                     if (resp.code == 200) {
                         this.tableList = resp.data.items;
                         this.total = resp.data.total;
+                    }
+                });
+            },
+            queryStockInfoList(queryValue){
+                this.$axios.post('/stockInfo/queryStockInfoList',{
+                    stockName:queryValue,
+                    page:1,
+                    pageSize:5,
+                }).then(resp=>{
+                    if (resp.code == 200) {
+                        this.stockInfoList = resp.data.items;
                     }
                 });
             },
@@ -212,16 +245,26 @@
             onChangeFileList(pictureFileList,fileList){
                 this.pictureFileList = fileList;
             },
-            submitUploadForm(){
+            submitDialogForm(){
                 let formData = new FormData();
-                formData.append("file",this.pictureFileList[0].raw);
+                if (this.pictureFileList.length>0) {
+                    formData.append("file",this.pictureFileList[0].raw);
+                }
+                formData.append("stockName",this.submitForm.stockName);
+                formData.append("startShareDate",this.submitForm.startShareDate);
+                formData.append("endShareDate",this.submitForm.endShareDate);
+                formData.append("darkDate",this.submitForm.darkDate);
+                formData.append("listingDate",this.submitForm.listingDate);
+                formData.append("moduleName",this.submitForm.moduleName);
+                formData.append("moduleContent",this.submitForm.moduleContent);
                 this.$axios.postFormData(
-                    '/stockInfo/uploadStockTemplateFile',
+                    '/stockStrategy/insertStockStrategy',
                     formData
                 ).then(resp=>{
-                    if (resp.data.code == 200) {
-                        this.$message.success("上传成功");
-                        this.dialogCreateVisible = false
+                    if (resp.code == 200) {
+                        this.$message.success("新增成功");
+                        this.dialogVisible = false
+                        this.queryData();
                     }else{
                         this.$message.error(resp.data.message);
                     }

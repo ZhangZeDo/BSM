@@ -181,7 +181,7 @@
                     '/stockInfo/uploadStockTemplateFile',
                     formData
                 ).then(resp=>{
-                    if (resp.data.code == 200) {
+                    if (resp.code == 200) {
                         this.$message.success("上传成功");
                         this.dialogUploadVisible = false
                     }else{

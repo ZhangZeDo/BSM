@@ -440,9 +440,10 @@
     </trim>
   </sql>
 
-  <select id="selectByStockStrategyDTO" resultMap="BaseResultMap" parameterType="com.hltj.api.dto.StockStrategyDTO">
+  <select id="selectByStockStrategyDTO" resultMap="ResultMapWithBLOBs" parameterType="com.hltj.api.dto.StockStrategyDTO">
     select
     <include refid="Base_Column_List" />
+    <include refid="Blob_Column_List" />
     from t_stock_strategy
     <include refid="queryByCaluse"/>
     <if test="param.startNum >= 0" >

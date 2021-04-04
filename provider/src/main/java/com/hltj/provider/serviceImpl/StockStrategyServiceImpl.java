@@ -1,12 +1,16 @@
 package com.hltj.provider.serviceImpl;
 
 import com.hltj.api.dao.TStockStrategyMapper;
+import com.hltj.api.domain.BaseEntity;
 import com.hltj.api.domain.TStockInfo;
 import com.hltj.api.domain.TStockStrategy;
 import com.hltj.api.dto.PageResponseResult;
 import com.hltj.api.dto.StockStrategyDTO;
+import com.hltj.api.enums.EntityStatus;
 import com.hltj.api.exception.BussException;
+import com.hltj.api.service.StockInfoService;
 import com.hltj.api.service.StockStrategyService;
+import com.hltj.provider.utils.UniqIdUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +30,8 @@ public class StockStrategyServiceImpl implements StockStrategyService {
     private static final Logger logger = LoggerFactory.getLogger(StockStrategyServiceImpl.class);
     @Resource
     private TStockStrategyMapper stockStrategyDao;
+    @Resource
+    private StockInfoService stockInfoService;
 
     @Override
     public PageResponseResult queryStockStrategyList(StockStrategyDTO stockStrategyDTO) {
@@ -42,6 +48,26 @@ public class StockStrategyServiceImpl implements StockStrategyService {
         List<TStockStrategy> stockStrategyList = stockStrategyDao.selectByStockStrategyDTO(stockStrategyDTO);
         int total = stockStrategyDao.selectTotalByStockStrategyDTO(stockStrategyDTO);
         return new PageResponseResult(total, stockStrategyList);
+    }
+
+    @Override
+    public void insertStockStrategy(TStockStrategy stockStrategy, String operator) {
+        stockStrategy.setId(UniqIdUtil.getUniqId());
+        String stockName = stockStrategy.getStockName();
+
+        TStockInfo stockInfo = stockInfoService.queryStockInfoByStockName(stockName);
+        stockStrategy.setStockCode(stockInfo.getStockCode());
+        stockStrategy.setStatus(EntityStatus.Valid.getCode());
+        stockStrategy.setCreatedBy(operator);
+        stockStrategy.setUpdatedBy(operator);
+
+        stockStrategyDao.insert(stockStrategy);
+    }
+
+    @Override
+    public void updateStockStrategy(TStockStrategy stockStrategy, String operator) {
+        stockStrategy.setUpdatedBy(operator);
+        stockStrategyDao.updateByPrimaryKeySelective(stockStrategy);
     }
 
     @Override

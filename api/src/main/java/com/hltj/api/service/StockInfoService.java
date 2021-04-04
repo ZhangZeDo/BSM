@@ -44,5 +44,10 @@ public interface StockInfoService {
      */
     TStockInfo queryStockInfoByStockCode(String stockCode);
 
+    /**
+     * 根据股票名称查询对应的股票信息
+     * @param stockName
+     * @return
+     */
     TStockInfo queryStockInfoByStockName(String stockName);
 }

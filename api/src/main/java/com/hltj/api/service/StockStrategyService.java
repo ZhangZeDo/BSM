@@ -1,6 +1,5 @@
 package com.hltj.api.service;
 
-import com.hltj.api.domain.TStockInfo;
 import com.hltj.api.domain.TStockStrategy;
 import com.hltj.api.dto.PageResponseResult;
 import com.hltj.api.dto.StockStrategyDTO;
@@ -17,6 +16,20 @@ public interface StockStrategyService {
      * @return
      */
     PageResponseResult queryStockStrategyList(StockStrategyDTO stockStrategyDTO);
+
+    /**
+     * 新增股票策略
+     * @param stockStrategy
+     * @param operator
+     */
+    void insertStockStrategy(TStockStrategy stockStrategy, String operator);
+
+    /**
+     * 更新股票策略
+     * @param stockStrategy
+     * @param operator
+     */
+    void updateStockStrategy(TStockStrategy stockStrategy, String operator);
 
     /**
      * 修改股票策略状态
