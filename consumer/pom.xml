@@ -125,7 +125,45 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+
     </build>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <moduleImageSavePath>D:/Program Files/fileDepository/moduleImage</moduleImageSavePath>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prd</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <moduleImageSavePath>/data/app/moduleImage</moduleImageSavePath>
+            </properties>
+        </profile>
+    </profiles>
 
 
 </project>
