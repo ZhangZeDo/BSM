@@ -8,8 +8,8 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://@jdbc.url@/bsm?useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;autoReconnect=true
-    username: root
-    password: root
+    username: @jdbc.username@
+    password: @jdbc.passwd@
     driver-class-name: com.mysql.jdbc.Driver
   redis:
     database: 0

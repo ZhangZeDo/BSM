@@ -144,6 +144,8 @@
             </activation>
             <properties>
                 <jdbc.url>localhost:3306</jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.passwd>root</jdbc.passwd>
                 <redis.host>localhost</redis.host>
                 <moduleImageSavePath>D:/Program Files/fileDepository/moduleImage</moduleImageSavePath>
             </properties>
@@ -156,6 +158,8 @@
             </activation>
             <properties>
                 <jdbc.url>129.204.251.179:3306</jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.passwd>ABCabc123</jdbc.passwd>
                 <redis.host>129.204.251.179</redis.host>
                 <moduleImageSavePath>/data/app/moduleImage</moduleImageSavePath>
             </properties>

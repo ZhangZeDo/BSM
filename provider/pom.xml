@@ -189,6 +189,8 @@
             <properties>
                 <redis.host>localhost</redis.host>
                 <jdbc.url>localhost:3306</jdbc.url>
+                <jdbc.passwd>root</jdbc.passwd>
+                <jdbc.username>root</jdbc.username>
             </properties>
         </profile>
 
@@ -200,6 +202,8 @@
             <properties>
                 <redis.host>129.204.251.179</redis.host>
                 <jdbc.url>129.204.251.179:3306</jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.passwd>ABCabc123</jdbc.passwd>
             </properties>
         </profile>
     </profiles>
