@@ -143,6 +143,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
+                <jdbc.url>localhost:3306</jdbc.url>
+                <redis.host>localhost</redis.host>
                 <moduleImageSavePath>D:/Program Files/fileDepository/moduleImage</moduleImageSavePath>
             </properties>
         </profile>
@@ -153,6 +155,8 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
+                <jdbc.url>129.204.251.179:3306</jdbc.url>
+                <redis.host>129.204.251.179</redis.host>
                 <moduleImageSavePath>/data/app/moduleImage</moduleImageSavePath>
             </properties>
         </profile>

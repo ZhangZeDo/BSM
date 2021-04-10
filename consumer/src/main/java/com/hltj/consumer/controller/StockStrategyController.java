@@ -7,7 +7,6 @@ import com.hltj.api.dto.StockStrategyDTO;
 import com.hltj.api.exception.BussException;
 import com.hltj.api.service.StockStrategyService;
 import com.hltj.api.utils.FileUtil;
-import com.hltj.consumer.constants.ConsumerConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +28,9 @@ public class StockStrategyController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(StockStrategyController.class);
     @Resource
     private StockStrategyService stockStrategyService;
+
+    @Value("${moduleImageSavePath}")
+    private String moduleImageSavePath;
 
     @RequestMapping(value = "queryStockStrategyList",method = RequestMethod.POST)
     @ResponseBody
@@ -57,7 +59,7 @@ public class StockStrategyController extends BaseController {
             if (file == null){
                 return ResponseResult.error("上传文件不能为空");
             }
-            String moduleImageUrl = FileUtil.uploadFile(ConsumerConstants.moduleImageSavePath,file.getInputStream(),file.getOriginalFilename());
+            String moduleImageUrl = FileUtil.uploadFile(moduleImageSavePath,file.getInputStream(),file.getOriginalFilename());
             stockStrategy.setModuleImage(moduleImageUrl);
             stockStrategy.setStockName(stockName);
             stockStrategy.setStartShareDate(startShareDate);

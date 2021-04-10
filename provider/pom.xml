@@ -180,6 +180,29 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <redis.host>localhost</redis.host>
+                <jdbc.url>localhost:3306</jdbc.url>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prd</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <redis.host>129.204.251.179</redis.host>
+                <jdbc.url>129.204.251.179:3306</jdbc.url>
+            </properties>
+        </profile>
+    </profiles>
 
 
 </project>

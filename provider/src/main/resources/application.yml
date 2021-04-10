@@ -7,13 +7,13 @@ server:
     max-http-post-size: 104857600
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/bsm?useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;autoReconnect=true
+    url: jdbc:mysql://@jdbc.url@/bsm?useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;autoReconnect=true
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
   redis:
     database: 0
-    host: localhost
+    host: @redis.host@
     port: 6379
     password: 123456
     jedis:
