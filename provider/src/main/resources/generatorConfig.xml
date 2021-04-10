@@ -52,8 +52,8 @@
         </javaClientGenerator>
 
         <!-- 配置表信息 -->
-        <table schema="bsm" tableName="t_fund_info"
-               domainObjectName="TFundInfo" enableCountByExample="true"
+        <table schema="bsm" tableName="t_stock_config"
+               domainObjectName="TStockConfig" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true">
         </table>

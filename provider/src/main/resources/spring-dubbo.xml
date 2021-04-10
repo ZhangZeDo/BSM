@@ -24,4 +24,5 @@
     <dubbo:service interface="com.hltj.api.service.LuckyInfoService" ref="luckyInfoService"/>
     <dubbo:service interface="com.hltj.api.service.BuyOutInfoService" ref="buyOutInfoService"/>
     <dubbo:service interface="com.hltj.api.service.FundInfoService" ref="fundInfoService"/>
+    <dubbo:service interface="com.hltj.api.service.StockConfigService" ref="stockConfigService"/>
 </beans>
